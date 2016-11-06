@@ -1,5 +1,5 @@
 {% set version = "0.1.post" %}
-{% set commit = "446ec9bd628244bf675887f5a030d3a94c07645e" %}
+{% set commit = "79344b335849c2eb43954b0751018051814019d6" %}
 
 package:
   name: pyarrow
@@ -8,10 +8,10 @@ package:
 source:
   fn: {{ commit }}.tar.gz
   url: https://github.com/apache/arrow/archive/{{ commit }}.tar.gz
-  sha256: 8f1be3e9094c2d0cbf22859709fd4e6b1659a8ea763c428ed5f4209ee1f22d9e
+  sha256: 8712b2750556f1ca500ce9f7ea3e03715a2721e371aa1faf9a67db9862d88a73
 
 build:
-  number: 1
+  number: 2
   rpaths:
     - lib  # [unix]
     - lib/python{{ environ['PY_VER'] }}/site-packages/pyarrow  # [unix]
@@ -19,19 +19,20 @@ build:
 
 requirements:
   build:
+    - python
     - toolchain
     - setuptools
     - arrow-cpp
-    - boost 1.61.*
     - cython
     - cmake
-    - numpy
+    - numpy x.x
     - six
     - parquet-cpp
 
   run:
+    - python
     - arrow-cpp
-    - numpy
+    - numpy x.x
     - pandas
     - parquet-cpp
     - six
