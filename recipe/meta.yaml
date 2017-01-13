@@ -11,11 +11,11 @@ source:
   sha256: 2ca012ab8a2a441c4fb1ff33d416c9466d250285634f23dc291748caf4457726
 
 build:
-  number: 5
+  number: 6
   rpaths:
     - lib  # [unix]
     - lib/python{{ environ['PY_VER'] }}/site-packages/pyarrow  # [unix]
-  skip: true  # [not linux]
+  skip: true  # [win]
 
 requirements:
   build:
