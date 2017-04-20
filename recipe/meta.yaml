@@ -39,8 +39,8 @@ requirements:
 test:
   imports:
     - pyarrow
-    - pyarrow.jemalloc  # [unix]
-    - pyarrow.parquet   # [unix]
+    - pyarrow._jemalloc  # [unix]
+    - pyarrow.parquet    # [unix]
 
 about:
   home: http://github.com/apache/arrow
