@@ -9,5 +9,5 @@ export PARQUET_HOME=$PREFIX
 
 cd python
 $PYTHON setup.py \
-        build_ext --build-type=release --with-parquet \
+        build_ext --build-type=release --with-parquet --with-jemalloc \
         install --single-version-externally-managed --record=record.txt
