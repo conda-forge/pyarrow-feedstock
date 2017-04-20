@@ -25,7 +25,7 @@ requirements:
     - numpy x.x
     - six
     - arrow-cpp 0.3.*
-    - parquet-cpp 1.1.*
+    - parquet-cpp 1.1.*  # [unix]
 
   run:
     - python
@@ -34,14 +34,13 @@ requirements:
     - pandas
     - six
     - arrow-cpp 0.3.*
-    - parquet-cpp 1.1.*
+    - parquet-cpp 1.1.*  # [unix]
 
 test:
   imports:
     - pyarrow
-    - pyarrow.io
-    - pyarrow.ipc
-    - pyarrow.parquet
+    - pyarrow.jemalloc  # [unix]
+    - pyarrow.parquet   # [unix]
 
 about:
   home: http://github.com/apache/arrow
