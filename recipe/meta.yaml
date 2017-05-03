@@ -1,5 +1,5 @@
 {% set version = "0.3.pre" %}
-{% set commit = "0dc6fe8f33befaaa5fc8055b6c157ac1ccb09e6b" %}
+{% set commit = "928b63f40d4d8234644acca36d41bed9390f5f3a" %}
 
 package:
   name: pyarrow
@@ -8,10 +8,10 @@ package:
 source:
   fn: {{ commit }}.tar.gz
   url: https://github.com/apache/arrow/archive/{{ commit }}.tar.gz
-  sha256: 98770adee18c058202e21a6b218c2ea40214ddc52e57472750ec71c5428de5ca
+  sha256: 4ac93d4f4e890d109993665600bd1036f8ab495bedd8efcec9bde5b03bcdbcc3
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
