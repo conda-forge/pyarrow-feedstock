@@ -2,6 +2,11 @@ pushd "%SRC_DIR%"\python
 
 @rem the symlinks for cmake modules don't work here
 dir "%SRC_DIR%\cpp\cmake_modules\
+del cmake_modules\BuildUtils.cmake
+del cmake_modules\SetupCxxFlags.cmake
+del cmake_modules\CompilerInfo.cmake
+del cmake_modules\FindNumPy.cmake
+del cmake_modules\FilePythonLibsNew.cmake
 dir cmake_modules
 copy /Y "%SRC_DIR%\cpp\cmake_modules\BuildUtils.cmake" cmake_modules\
 copy /Y "%SRC_DIR%\cpp\cmake_modules\SetupCxxFlags.cmake" cmake_modules\
