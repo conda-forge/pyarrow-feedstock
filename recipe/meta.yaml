@@ -38,6 +38,9 @@ requirements:
     - six
     - arrow-cpp 0.4.*
     - parquet-cpp 1.1.0
+    - brotli  # [win]
+    - snappy  # [win]
+    - thrift-cpp  # [win]
 
 test:
   imports:
