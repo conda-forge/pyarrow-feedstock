@@ -1,5 +1,5 @@
-{% set version = "0.3.0.post" %}
-{% set commit = "37dbddf0dc6582586a2bea98a436cb20726799a4" %}
+{% set version = "0.4.0" %}
+{% set commit = "a8f8ba0cbcf5f596f042e90b7a208e7a0c3925b7" %}
 
 package:
   name: pyarrow
@@ -8,10 +8,10 @@ package:
 source:
   fn: {{ commit }}.tar.gz
   url: https://github.com/apache/arrow/archive/{{ commit }}.tar.gz
-  sha256: 86b703ba6fb66a812b5eea99b4b6e7d655ad62969962c74ecc4087615e6e1c6f
+  sha256: d40ca0491918e7b74223068f47a4f475a7c489e0f001f04907b7e7c232a491c3
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win32]
   skip: true  # [win and py<35]
   features:
@@ -27,8 +27,8 @@ requirements:
     - cmake
     - numpy x.x
     - six
-    - arrow-cpp 0.3.*
-    - parquet-cpp 1.1.*  # [unix]
+    - arrow-cpp 0.4.*
+    - parquet-cpp 1.1.0
 
   run:
     - python
@@ -36,14 +36,14 @@ requirements:
     - numpy x.x
     - pandas
     - six
-    - arrow-cpp 0.3.*
-    - parquet-cpp 1.1.*  # [unix]
+    - arrow-cpp 0.4.*
+    - parquet-cpp 1.1.0
 
 test:
   imports:
     - pyarrow
+    - pyarrow.parquet
     - pyarrow._jemalloc  # [unix]
-    - pyarrow.parquet    # [unix]
 
 about:
   home: http://github.com/apache/arrow
@@ -54,3 +54,5 @@ extra:
   recipe-maintainers:
     - wesm
     - xhochy
+    - jreback
+    - cpcloud
