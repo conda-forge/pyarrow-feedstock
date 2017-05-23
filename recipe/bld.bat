@@ -13,6 +13,8 @@ copy /Y "%SRC_DIR%\cpp\cmake_modules\FindNumPy.cmake" cmake_modules\
 copy /Y "%SRC_DIR%\cpp\cmake_modules\FindPythonLibsNew.cmake" cmake_modules\
 
 SET ARROW_HOME=%LIBRARY_PREFIX%
-"%PYTHON%" setup.py install --single-version-externally-managed --record=record.txt
+"%PYTHON%" setup.py ^
+           build_ext --build-type=release --with-parquet ^
+           install --single-version-externally-managed --record=record.txt
 if errorlevel 1 exit 1
 popd
