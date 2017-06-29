@@ -11,7 +11,7 @@ source:
   sha256: c784da3f900174ea36983a190f369acb408919ff710a95365222ef35bfa58d08
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win32]
   skip: true  # [win and py<35]
   features:
@@ -28,7 +28,7 @@ requirements:
     - numpy x.x
     - six
     - arrow-cpp 0.4.1
-    - parquet-cpp 1.2.0.pre
+    - parquet-cpp 1.1.0.post
 
   run:
     - python
@@ -37,7 +37,7 @@ requirements:
     - pandas
     - six
     - arrow-cpp 0.4.1
-    - parquet-cpp 1.2.0.pre
+    - parquet-cpp 1.1.0.post
 
 test:
   imports:
