@@ -1,5 +1,5 @@
-{% set version = "0.4.1" %}
-{% set commit = "46315431aeda3b6968b3ac4c1087f6d41052b99d" %}
+{% set version = "0.5.0.pre" %}
+{% set commit = "362e754b395787fd935d0b66a0cdcbec8aa13f85" %}
 
 package:
   name: pyarrow
@@ -8,10 +8,10 @@ package:
 source:
   fn: {{ commit }}.tar.gz
   url: https://github.com/apache/arrow/archive/{{ commit }}.tar.gz
-  sha256: c784da3f900174ea36983a190f369acb408919ff710a95365222ef35bfa58d08
+  sha256: d4602db68abd241ce6b8aec11a2d45b61ef05659d940c911382bc28462b38539
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win32]
   skip: true  # [win and py<35]
   features:
@@ -27,8 +27,8 @@ requirements:
     - cmake
     - numpy x.x
     - six
-    - arrow-cpp 0.4.1
-    - parquet-cpp 1.1.0.post
+    - arrow-cpp 0.5.*
+    - parquet-cpp 1.2.*
 
   run:
     - python
@@ -36,14 +36,13 @@ requirements:
     - numpy x.x
     - pandas
     - six
-    - arrow-cpp 0.4.1
-    - parquet-cpp 1.1.0.post
+    - arrow-cpp 0.5.*
+    - parquet-cpp 1.2.*
 
 test:
   imports:
     - pyarrow
     - pyarrow.parquet
-    - pyarrow._jemalloc  # [unix]
 
 about:
   home: http://github.com/apache/arrow
