@@ -1,5 +1,6 @@
-{% set version = "0.5.0" %}
-{% set commit = "e9f76e125b836d0fdc0a533e2fee3fca8bf4c1a1" %}
+{% set version = "0.6.0" %}
+{% set commit = "b17333482ea1da3728538bc912b1053ba70ed2e7" %}
+{% set checksum = "3975e483b9d156352b9c23d265354bfcf5d7bdddea6c7ee06e32eeea6b1f8997" %}
 
 package:
   name: pyarrow
@@ -8,7 +9,7 @@ package:
 source:
   fn: {{ commit }}.tar.gz
   url: https://github.com/apache/arrow/archive/{{ commit }}.tar.gz
-  sha256: 077507cbe05a672c03d827fc5aee8cabc6f3e5884fdca0f425b0a6458968a7db
+  sha256: {{ checksum }}
 
 build:
   number: 0
@@ -27,8 +28,8 @@ requirements:
     - cmake
     - numpy x.x
     - six
-    - arrow-cpp 0.5.*
-    - parquet-cpp 1.2.*
+    - arrow-cpp 0.6.*
+    - parquet-cpp 1.3.*
 
   run:
     - python
@@ -36,13 +37,14 @@ requirements:
     - numpy x.x
     - pandas
     - six
-    - arrow-cpp 0.5.*
-    - parquet-cpp 1.2.*
+    - arrow-cpp 0.6.*
+    - parquet-cpp 1.3.*
 
 test:
   imports:
     - pyarrow
     - pyarrow.parquet
+    - pyarrow.plasma  # [unix]
 
 about:
   home: http://github.com/apache/arrow
@@ -55,3 +57,5 @@ extra:
     - xhochy
     - jreback
     - cpcloud
+    - pcmoritz
+    - robertnishihara
