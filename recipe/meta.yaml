@@ -1,6 +1,6 @@
 {% set version = "0.6.0" %}
 {% set commit = "b17333482ea1da3728538bc912b1053ba70ed2e7" %}
-{% set checksum = "3975e483b9d156352b9c23d265354bfcf5d7bdddea6c7ee06e32eeea6b1f8997" %}
+{% set checksum = "278e702a94309b049d6f891b26ea045b6fc2abd3352be8032ddd83c9b633ea90" %}
 
 package:
   name: pyarrow
@@ -12,7 +12,7 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win32]
   skip: true  # [win and py<35]
   features:
