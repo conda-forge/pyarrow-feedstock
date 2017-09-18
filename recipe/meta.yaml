@@ -1,6 +1,6 @@
-{% set version = "0.6.0" %}
-{% set commit = "b17333482ea1da3728538bc912b1053ba70ed2e7" %}
-{% set checksum = "278e702a94309b049d6f891b26ea045b6fc2abd3352be8032ddd83c9b633ea90" %}
+{% set version = "0.7.0" %}
+{% set commit = "97f9029ce835dfc2655ca91b9820a2e6aed89107" %}
+{% set checksum = "1b2c063900a4e29f6284be6c61b02402058390964a3c8b98330fe74c303b194d" %}
 
 package:
   name: pyarrow
@@ -12,7 +12,7 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win32]
   skip: true  # [win and py<35]
   features:
@@ -28,7 +28,7 @@ requirements:
     - cmake
     - numpy x.x
     - six
-    - arrow-cpp 0.6.*
+    - arrow-cpp 0.7.*
     - parquet-cpp 1.3.*
 
   run:
@@ -37,7 +37,7 @@ requirements:
     - numpy x.x
     - pandas
     - six
-    - arrow-cpp 0.6.*
+    - arrow-cpp 0.7.*
     - parquet-cpp 1.3.*
 
 test:
