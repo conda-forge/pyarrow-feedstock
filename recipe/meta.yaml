@@ -12,7 +12,7 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win32]
   skip: true  # [win and py<35]
   features:
@@ -26,7 +26,8 @@ requirements:
     - setuptools_scm
     - cython
     - cmake
-    - numpy x.x
+    - numpy 1.10.*  # [not (win and py>=36)]
+    - numpy 1.12.*  # [win and py>=36]
     - six
     - arrow-cpp 0.7.*
     - parquet-cpp 1.3.*
@@ -34,7 +35,8 @@ requirements:
   run:
     - python
     - setuptools
-    - numpy x.x
+    - numpy >=1.10  # [not (win and py>=36)]
+    - numpy >=1.12  # [win and py>=36]
     - pandas
     - six
     - arrow-cpp 0.7.*
