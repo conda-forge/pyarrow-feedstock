@@ -41,6 +41,7 @@ requirements:
     - six
     - arrow-cpp 0.8.0
     - parquet-cpp 1.4.*
+    - futures  # [py27]
 
 test:
   imports:
