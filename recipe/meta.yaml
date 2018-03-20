@@ -1,6 +1,6 @@
-{% set version = "0.8.0" %}
-{% set commit = "1d689e5a3e417d3a4b3de16fea7a6fe195c8f8df" %}
-{% set checksum = "abd102b9be07b22e629cd6918ffde5e36ed17a54c127d218f6b57ff0ffce1c64" %}
+{% set version = "0.9.0" %}
+{% set commit = "c695a5ddc8d26c977b5ecd0c55212e900726953e" %}
+{% set checksum = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" %}
 
 package:
   name: pyarrow
@@ -29,8 +29,8 @@ requirements:
     - numpy 1.10.*  # [not (win and py>=36)]
     - numpy 1.12.*  # [win and py>=36]
     - six
-    - arrow-cpp 0.8.0
-    - parquet-cpp 1.4.*
+    - arrow-cpp 0.9.0
+    - parquet-cpp 1.4.0
 
   run:
     - python
@@ -39,8 +39,8 @@ requirements:
     - numpy >=1.12  # [win and py>=36]
     - pandas
     - six
-    - arrow-cpp 0.8.0
-    - parquet-cpp 1.4.*
+    - arrow-cpp 0.9.0
+    - parquet-cpp 1.4.0
     - futures  # [py27]
 
 test:
