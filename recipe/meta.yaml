@@ -1,6 +1,6 @@
 {% set version = "0.9.0" %}
 {% set commit = "c695a5ddc8d26c977b5ecd0c55212e900726953e" %}
-{% set checksum = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" %}
+{% set checksum = "d4cb93d0f63da1ce48f08af05c63cdec82194078221f7f4c5696cb84776f60db" %}
 
 package:
   name: pyarrow
