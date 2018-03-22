@@ -9,6 +9,6 @@ export PARQUET_HOME=$PREFIX
 
 
 cd python
-$PYTHON setup.py \
-        build_ext --build-type=release --with-parquet --with-plasma \
-        install --single-version-externally-managed --record=record.txt
+$PYTHON setup.py build_ext  --build-type=release \
+    --with-orc --with-parquet --with-plasma \
+    install --single-version-externally-managed --record=record.txt
