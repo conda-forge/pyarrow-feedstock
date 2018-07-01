@@ -26,8 +26,8 @@ requirements:
     - setuptools
     - setuptools_scm
     - cython
-    - numpy         # [not (win and py>=36)]
-    - numpy         # [win and py>=36]
+    - numpy 1.10.*   # [not (win and py>=36)]
+    - numpy 1.12.*   # [win and py>=36]
     - six
     - arrow-cpp 0.9.0
     - parquet-cpp 1.4.0
@@ -35,8 +35,8 @@ requirements:
   run:
     - python
     - setuptools
-    - {{ pin_compatible('numpy') }}   # [not (win and py>=36)]
-    - {{ pin_compatible('numpy') }}   # [win and py>=36]
+    - {{ pin_compatible('numpy', lower_bound='1.10') }}   # [not (win and py>=36)]
+    - {{ pin_compatible('numpy', lower_bound='1.12') }}   # [win and py>=36]
     - pandas
     - six
     - arrow-cpp 0.9.0
