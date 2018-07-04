@@ -2,8 +2,6 @@ c_compiler:
 - vs2015
 cxx_compiler:
 - vs2015
-numpy:
-- '1.11'
 pin_run_as_build:
   python:
     min_pin: x.x
