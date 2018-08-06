@@ -30,7 +30,7 @@ requirements:
     - numpy 1.12.*   # [win and py>=36]
     - six
     - arrow-cpp 0.10.0
-    - parquet-cpp 1.4.0.post0
+    - parquet-cpp 1.5.0.pre
 
   run:
     - python
@@ -40,7 +40,7 @@ requirements:
     - pandas
     - six
     - arrow-cpp 0.10.0
-    - parquet-cpp 1.4.0.post0
+    - parquet-cpp 1.5.0.pre
     - futures  # [py27]
 
 test:
