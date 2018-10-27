@@ -39,7 +39,7 @@ requirements:
     - futures  # [py27]
     - arrow-cpp {{ version }}
     # empty parquet-cpp metapackage, force old versions to be uninstalled
-    - parquet-cpp 1.5.1
+    - parquet-cpp >=1.5.1
 
 test:
   imports:
