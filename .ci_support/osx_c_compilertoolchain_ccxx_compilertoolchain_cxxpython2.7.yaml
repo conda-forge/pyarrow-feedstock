@@ -1,5 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
+boost_cpp:
+- 1.68.0
 build_number_decrement:
 - '1000'
 c_compiler:
@@ -15,6 +17,8 @@ macos_machine:
 macos_min_version:
 - '10.9'
 pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
