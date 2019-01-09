@@ -22,6 +22,8 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
+    # directly pin boost-cpp as we also seem to directly include boost symbols
+    # in the Python modules.
     - boost-cpp
     - python
     - setuptools
