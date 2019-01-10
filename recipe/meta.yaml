@@ -12,7 +12,7 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 1000
+  number: 1001
   skip: true  # [win32]
   skip: true  # [win and py<35]
 
@@ -22,6 +22,9 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
+    # directly pin boost-cpp as we also seem to directly include boost symbols
+    # in the Python modules.
+    - boost-cpp
     - python
     - setuptools
     - setuptools_scm
@@ -31,6 +34,7 @@ requirements:
     - arrow-cpp {{ version }}
 
   run:
+    - boost-cpp
     - python
     - setuptools
     - {{ pin_compatible('numpy', lower_bound='1.14') }}
