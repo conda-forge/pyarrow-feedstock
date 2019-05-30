@@ -12,7 +12,7 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win32]
   skip: true  # [win and py<35]
 
@@ -36,7 +36,6 @@ requirements:
   run:
     - boost-cpp
     - python
-    - setuptools
     - {{ pin_compatible('numpy', lower_bound='1.14') }}
     - pandas
     - six
