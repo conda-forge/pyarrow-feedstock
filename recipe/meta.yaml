@@ -36,7 +36,6 @@ requirements:
   run:
     - boost-cpp
     - python
-    - setuptools
     - {{ pin_compatible('numpy', lower_bound='1.14') }}
     - pandas
     - six
