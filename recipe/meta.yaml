@@ -49,11 +49,11 @@ requirements:
 test:
   imports:
     - pyarrow
-    - pyarrow.orc      # [unix]
-    - pyarrow.plasma   # [unix]
+    - pyarrow.flight   # [not py==27]
     - pyarrow.gandiva  # [not py==27]
+    - pyarrow.orc      # [unix]
     - pyarrow.parquet
-    - pyarrow.flight
+    - pyarrow.plasma   # [unix]
 
 about:
   home: http://github.com/apache/arrow
