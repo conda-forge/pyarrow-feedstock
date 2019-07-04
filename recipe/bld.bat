@@ -14,9 +14,12 @@ copy /Y "%SRC_DIR%\cpp\cmake_modules\FindPythonLibsNew.cmake" cmake_modules\
 
 SET ARROW_HOME=%LIBRARY_PREFIX%
 SET SETUPTOOLS_SCM_PRETEND_VERSION=%PKG_VERSION%
-SET "PYARROW_CMAKE_GENERATOR=NMake Makefiles"
+SET PYARROW_WITH_FLIGHT=1
+SET PYARROW_WITH_GANDIVA=1
+SET PYARROW_WITH_PARQUET=1
 "%PYTHON%" setup.py ^
-           build_ext --build-type=release --with-parquet ^
-           install --single-version-externally-managed --record=record.txt
+           build_ext --build-type=release ^
+           install --single-version-externally-managed ^
+                   --record=record.txt
 if errorlevel 1 exit 1
 popd
