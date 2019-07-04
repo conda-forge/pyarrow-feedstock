@@ -37,7 +37,7 @@ requirements:
     - {{ pin_compatible('arrow-cpp') }}
     - {{ pin_compatible('numpy', lower_bound='1.14') }}
     - boost-cpp
-    - futures  # [py27]
+    - futures  # [py==27]
     - glog
     - pandas
     # empty parquet-cpp metapackage, force old versions to be uninstalled
@@ -51,7 +51,7 @@ test:
     - pyarrow
     - pyarrow.orc      # [unix]
     - pyarrow.plasma   # [unix]
-    - pyarrow.gandiva  # [unix]
+    - pyarrow.gandiva  # [not py==27]
     - pyarrow.parquet
     - pyarrow.flight
 
