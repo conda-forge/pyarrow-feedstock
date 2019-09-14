@@ -12,13 +12,14 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win32]
   skip: true  # [win and py<35]
 
 requirements:
   build:
     - cmake
+    - ninja
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
