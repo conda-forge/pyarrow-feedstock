@@ -35,7 +35,6 @@ requirements:
     - six
 
   run:
-    - {{ pin_compatible('arrow-cpp') }}
     - {{ pin_compatible('numpy', lower_bound='1.16') }}
     - boost-cpp
     - futures  # [py==27]
