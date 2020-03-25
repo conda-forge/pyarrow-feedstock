@@ -1,6 +1,9 @@
 {% set version = "0.16.0" %}
 {% set filename = "apache-arrow-" + version + ".tar.gz" %}
 {% set checksum = "261992de4029a1593195ff4000501503bd403146471b3168bd2cc414ad0fb7f5" %}
+{% set number = "3" %}
+{% set cuda_enabled = cuda_compiler_version is not undefined and cuda_compiler_version == '9.2' %}
+{% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 
 package:
   name: pyarrow
@@ -12,7 +15,7 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 2
+  number: {{ number }}
 
 requirements:
   build:
@@ -45,18 +48,25 @@ requirements:
     - six
     - snappy
 
-test:
-  imports:
-    - pyarrow
-    - pyarrow.dataset  # [not py==27]
-    - pyarrow.flight   # [not py==27]
-    - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
-    - pyarrow.orc      # [unix]
-    - pyarrow.parquet
-    - pyarrow.plasma   # [unix]
-    - pyarrow.fs
-    - pyarrow._s3fs
-    - pyarrow._hdfs
+    test:
+      imports:
+        - pyarrow
+        - pyarrow.dataset  # [not py==27]
+        - pyarrow.flight   # [not py==27]
+        - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
+        - pyarrow.orc      # [unix]
+        - pyarrow.parquet
+        - pyarrow.plasma   # [unix]
+        - pyarrow.fs
+        - pyarrow._s3fs
+        - pyarrow._hdfs
+        - pyarrow.cuda     # [linux and cuda_compiler_version is not undefined and cuda_compiler_version == '9.2']
+
+    about:
+      home: http://github.com/apache/arrow
+      license: Apache-2.0
+      license_file: LICENSE.txt
+      summary: 'Python libraries for Apache Arrow'
 
 about:
   home: http://github.com/apache/arrow
