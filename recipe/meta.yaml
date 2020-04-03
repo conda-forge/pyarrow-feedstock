@@ -50,7 +50,7 @@ test:
     - pyarrow
     - pyarrow.dataset  # [not py==27]
     - pyarrow.flight   # [not py==27]
-    - pyarrow.gandiva  # [not py==27]
+    - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
     - pyarrow.orc      # [unix]
     - pyarrow.parquet
     - pyarrow.plasma   # [unix]
