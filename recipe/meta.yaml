@@ -13,13 +13,12 @@ source:
 
 build:
   number: 2
-  skip: true  # [win32]
-  skip: true  # [win and py<35]
 
 requirements:
   build:
     - cmake
     - ninja
+    - make  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -51,7 +50,7 @@ test:
     - pyarrow
     - pyarrow.dataset  # [not py==27]
     - pyarrow.flight   # [not py==27]
-    - pyarrow.gandiva  # [not py==27]
+    - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
     - pyarrow.orc      # [unix]
     - pyarrow.parquet
     - pyarrow.plasma   # [unix]
@@ -61,7 +60,7 @@ test:
 
 about:
   home: http://github.com/apache/arrow
-  license: Apache 2.0
+  license: Apache-2.0
   license_file: LICENSE.txt
   summary: 'Python libraries for Apache Arrow'
 
