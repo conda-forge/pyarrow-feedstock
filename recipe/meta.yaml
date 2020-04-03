@@ -13,13 +13,12 @@ source:
 
 build:
   number: 2
-  skip: true  # [win32]
-  skip: true  # [win and py<35]
 
 requirements:
   build:
     - cmake
     - ninja
+    - make  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
