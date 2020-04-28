@@ -47,7 +47,7 @@ outputs:
       host:
         # directly pin boost-cpp as we also seem to directly include boost symbols
         # in the Python modules.
-        - arrow-cpp {{ version }} *_{{ build_ext }}
+        - arrow-cpp {{ version }}
         - boost-cpp
         - cython
         - numpy >=1.16
@@ -57,7 +57,7 @@ outputs:
         - six
       run:
         - {{ pin_compatible('numpy', lower_bound='1.16') }}
-        - arrow-cpp {{ version }} *_{{ build_ext }}
+        - arrow-cpp {{ version }}
         - boost-cpp
         - futures  # [py==27]
         - glog
