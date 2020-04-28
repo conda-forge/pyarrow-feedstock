@@ -17,7 +17,7 @@ source:
 build:
   skip: true            # [win32]
   skip: true            # [win and py<35]
-  skip: true            # [linux and cuda_compiler_version is not undefined and cuda_compiler_version != '9.2' and cuda_compiler_version != 'None']
+  skip: true            # [cuda_compiler_version not in (undefined, "None", "9.2")]
   number: {{ number }}
 
 outputs:
@@ -30,10 +30,9 @@ outputs:
       string: "py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ number }}_{{ build_ext }}"
       skip: true              # [win32]
       skip: true              # [win and py<35]
-      skip: true              # [linux and cuda_compiler_version is not undefined and cuda_compiler_version != '9.2' and cuda_compiler_version != 'None']
+      skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
       track_features:
-        - arrow-cuda          # [linux and cuda_compiler_version is not undefined and cuda_compiler_version == '9.2']
-
+        - {{ "- arrow-cuda" if cuda_enabled else "" }}
     requirements:
       build:
         - cmake
@@ -80,7 +79,7 @@ outputs:
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
-        - pyarrow.cuda     # [linux and cuda_compiler_version is not undefined and cuda_compiler_version == '9.2']
+        {{ "- pyarrow.cuda" if cuda_enabled else "" }}
 
     about:
       home: http://github.com/apache/arrow
