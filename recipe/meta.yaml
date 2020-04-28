@@ -32,7 +32,7 @@ outputs:
       skip: true              # [win and py<35]
       skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
       track_features:
-        - {{ "- arrow-cuda" if cuda_enabled else "" }}
+        {{ "- arrow-cuda" if cuda_enabled else "" }}
     requirements:
       build:
         - cmake
