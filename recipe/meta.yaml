@@ -78,11 +78,12 @@ outputs:
         - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
         - pyarrow.orc      # [unix]
         - pyarrow.parquet
-        - pyarrow.plasma   # [unix and cuda_compiler_version == "None"]
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
-        {{ "- pyarrow.cuda" if cuda_enabled else "" }}
+        # Importing pyarrow.plasma and pyarrow.cuda packages require libcuda.so.1
+        - pyarrow.plasma   # [unix and cuda_compiler_version == "None"]
+        # {{ "- pyarrow.cuda" if cuda_enabled else "" }}
 
     about:
       home: http://github.com/apache/arrow
