@@ -38,7 +38,6 @@ outputs:
         - cmake
         - ninja
         - make                # [unix]
-        - python              # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         # pyarrow does not require nvcc but it needs to link against libraries in arrow-cpp=*=*cuda
@@ -68,7 +67,6 @@ outputs:
         - snappy
       run_constrained:
         - arrow-cpp-proc * {{ build_ext }}
-        - cudatoolkit >=9.2
 
     test:
       imports:
@@ -81,9 +79,9 @@ outputs:
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
-        # Importing pyarrow.plasma and pyarrow.cuda packages require libcuda.so.1
-        - pyarrow.plasma   # [unix and cuda_compiler_version == "None"]
-        # {{ "- pyarrow.cuda" if cuda_enabled else "" }}
+        # When using cuda, importing pyarrow.plasma and pyarrow.cuda
+        # packages require libcuda.so.1 that is not available in CI
+        - pyarrow.plasma   # [unix and cuda_compiler_version in (undefined, "None")]
 
     about:
       home: http://github.com/apache/arrow

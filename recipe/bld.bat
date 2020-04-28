@@ -23,7 +23,7 @@ SET PYARROW_WITH_GANDIVA=1
 SET PYARROW_WITH_PARQUET=1
 SET PYARROW_CMAKE_GENERATOR=Ninja
 
-"%PYTHON%" setup.py ^
+python     setup.py ^
            build_ext ^
            install --single-version-externally-managed ^
                    --record=record.txt
