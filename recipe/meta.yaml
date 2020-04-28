@@ -38,6 +38,7 @@ outputs:
         - cmake
         - ninja
         - make                # [unix]
+        - python              # [win]
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         # pyarrow does not require nvcc but it needs to link against libraries in arrow-cpp=*=*cuda
@@ -47,7 +48,6 @@ outputs:
         # in the Python modules.
         - arrow-cpp {{ version }} *_{{ build_ext }}
         - boost-cpp
-        - python
         - cython
         - numpy >=1.16
         - python
@@ -78,7 +78,7 @@ outputs:
         - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
         - pyarrow.orc      # [unix]
         - pyarrow.parquet
-        - pyarrow.plasma   # [unix]
+        - pyarrow.plasma   # [unix and cuda_compiler_version == "None"]
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
