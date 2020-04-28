@@ -55,6 +55,7 @@ outputs:
         - six
       run:
         - {{ pin_compatible('numpy', lower_bound='1.16') }}
+        - arrow-cpp {{ version }} *_{{ build_ext }}
         - boost-cpp
         - futures  # [py==27]
         - glog
