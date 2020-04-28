@@ -47,8 +47,9 @@ outputs:
         # in the Python modules.
         - arrow-cpp {{ version }} *_{{ build_ext }}
         - boost-cpp
+        - python
         - cython
-        - numpy 1.16.*
+        - numpy >=1.16
         - python
         - setuptools
         - setuptools_scm
@@ -67,6 +68,7 @@ outputs:
         - snappy
       run_constrained:
         - arrow-cpp-proc * {{ build_ext }}
+        - cudatoolkit >=9.2
 
     test:
       imports:
