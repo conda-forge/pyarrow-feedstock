@@ -33,6 +33,8 @@ outputs:
       skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
       track_features:
         {{ "- arrow-cuda" if cuda_enabled else "" }}
+      activate_in_script: True
+
     requirements:
       build:
         - cmake
