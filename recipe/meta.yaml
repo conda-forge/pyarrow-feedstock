@@ -1,6 +1,6 @@
-{% set version = "0.16.0" %}
+{% set version = "0.17.0" %}
 {% set filename = "apache-arrow-" + version + ".tar.gz" %}
-{% set checksum = "261992de4029a1593195ff4000501503bd403146471b3168bd2cc414ad0fb7f5" %}
+{% set checksum = "2c46b4c3e1f88aad510214e633a6f4ce459708f3db78cd0daf549a135cbe8e6d" %}
 
 package:
   name: pyarrow
@@ -12,11 +12,11 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
-    - cmake
+    - cmake 3.16.*
     - ninja
     - make  # [unix]
     - {{ compiler('c') }}
@@ -62,7 +62,7 @@ about:
   home: http://github.com/apache/arrow
   license: Apache-2.0
   license_file: LICENSE.txt
-  summary: 'Python libraries for Apache Arrow'
+  summary: Python libraries for Apache Arrow
 
 extra:
   recipe-maintainers:
