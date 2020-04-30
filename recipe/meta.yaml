@@ -15,8 +15,6 @@ source:
   sha256: {{ checksum }}
 
 build:
-  skip: true            # [win32]
-  skip: true            # [win and py<35]
   skip: true            # [cuda_compiler_version not in (undefined, "None", "9.2")]
   number: {{ number }}
 
@@ -28,8 +26,6 @@ outputs:
     build:
       number: {{ number }}
       string: "py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ number }}_{{ build_ext }}"
-      skip: true              # [win32]
-      skip: true              # [win and py<35]
       skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
       track_features:
         {{ "- arrow-cuda" if cuda_enabled else "" }}
@@ -37,6 +33,7 @@ outputs:
 
     requirements:
       build:
+        - wget
         - cmake
         - ninja
         - make                # [unix]
@@ -82,10 +79,8 @@ outputs:
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
-        # When using cuda, importing pyarrow.plasma and pyarrow.cuda
-        # packages require libcuda.so.1 that is not available in CI
         - pyarrow.plasma   # [unix and cuda_compiler_version in (undefined, "None")]
-
+        # CUDA dependent pyarrow.plasma and pyarrow.cuda are tested in build-arrow.sh
     about:
       home: http://github.com/apache/arrow
       license: Apache-2.0
