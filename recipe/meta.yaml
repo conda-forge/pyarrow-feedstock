@@ -33,7 +33,7 @@ outputs:
 
     requirements:
       build:
-        - wget
+        - wget                    # [cuda_compiler_version is not undefined and cuda_compiler_version == '9.2']
         - cmake
         - ninja
         - make                # [unix]
