@@ -47,7 +47,6 @@ requirements:
   run:
     - {{ pin_compatible('numpy', lower_bound='1.16') }}
     - boost-cpp
-    - arrow-cpp {{ version }}
     - futures  # [py==27]
     - glog
     - pandas
