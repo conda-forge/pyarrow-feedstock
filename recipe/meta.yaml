@@ -17,6 +17,7 @@ source:
 build:
   number: {{ number }}
   string: "py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ number }}_{{ build_ext }}"
+  skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
   track_features:
     {{ "- arrow-cuda" if cuda_enabled else "" }}
 
