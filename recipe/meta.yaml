@@ -34,6 +34,9 @@ requirements:
     # directly pin boost-cpp as we also seem to directly include boost symbols
     # in the Python modules.
     - arrow-cpp ={{ version }}=*{{ build_ext }}
+    # The version of re2 should match with the version that arrow-cpp
+    # was built against:
+    - re2 2020.04.*
     - boost-cpp
     - cython
     - numpy 1.16.*
@@ -44,7 +47,7 @@ requirements:
     - {{ pin_compatible('numpy', lower_bound='1.16') }}
     - boost-cpp
     - arrow-cpp ={{ version }}=*{{ build_ext }}
-    - futures  # [py==27]
+    - re2 2020.04.*
     - glog
     - pandas
     # empty parquet-cpp metapackage, force old versions to be uninstalled
@@ -53,28 +56,25 @@ requirements:
     - snappy
   run_constrained:
     - arrow-cpp-proc * {{ build_ext }}
+    - cudatoolkit >=9.2         # [cuda_compiler_version not in (undefined, "None")]
 
 test:
   imports:
     - pyarrow
-    - pyarrow.dataset  # [not py==27]
-    - pyarrow.flight   # [not py==27]
-    - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
+    - pyarrow.dataset
+    - pyarrow.flight
+    - pyarrow.gandiva  # [not (aarch64 or ppc64le)]
     - pyarrow.orc      # [unix]
     - pyarrow.parquet
     - pyarrow.plasma   # [unix]
     - pyarrow.fs
     - pyarrow._s3fs
     - pyarrow._hdfs
-    - pyarrow.cuda                                            # [cuda_compiler_version not in (undefined, "None")]
-  requires:                                                   # [cuda_compiler_version not in (undefined, "None")]
-    - pytest                                                  # [cuda_compiler_version not in (undefined, "None")]
-    - numba                                                   # [cuda_compiler_version not in (undefined, "None")]
-  source_files:                                               # [cuda_compiler_version not in (undefined, "None")]
-    - python/pyarrow/tests/                                   # [cuda_compiler_version not in (undefined, "None")]
-  commands:                                                   # [cuda_compiler_version not in (undefined, "None")]
-    - python python/pyarrow/tests/test_cuda.py                # [cuda_compiler_version not in (undefined, "None")]
-    - python python/pyarrow/tests/test_cuda_numba_interop.py  # [cuda_compiler_version not in (undefined, "None")]
+    # We can only test importing cuda package but cannot run when a
+    # CUDA device is not available, for instance, when building from a
+    # CI. That said, the pyarrow.cuda import test is carried out in
+    # the build script.
+    - pyarrow.cuda          # [cuda_compiler_version not in (undefined, "None")]
 
 about:
   home: http://github.com/apache/arrow
