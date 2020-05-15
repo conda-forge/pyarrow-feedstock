@@ -67,11 +67,11 @@ test:
     - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
     - pyarrow.orc      # [unix]
     - pyarrow.parquet
+    - pyarrow.plasma   # [unix]
     - pyarrow.fs
     - pyarrow._s3fs
     - pyarrow._hdfs
-    - pyarrow.plasma   # [unix and cuda_compiler_version in (undefined, "None")]
-    # CUDA dependent pyarrow.plasma and pyarrow.cuda are tested in build-arrow.sh
+    - pyarrow.cuda     # [linux and cuda_compiler_version != "None"]
 
 about:
   home: http://github.com/apache/arrow

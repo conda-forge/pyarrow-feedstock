@@ -38,17 +38,3 @@ $PYTHON setup.py \
         build_ext $BUILD_EXT_FLAGS \
         install --single-version-externally-managed \
                 --record=record.txt
-
-# Test CUDA support
-if [[ "$PYARROW_WITH_CUDA" = "1" ]]
-then
-    # move out from pyarrow source directory
-    mkdir tmp-test
-    cd tmp-test
-    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-compat-10-0_410.48-1_amd64.deb
-    ar x cuda-compat-10-0_410.48-1_amd64.deb
-    tar xvf data.tar.xz
-    export LD_LIBRARY_PATH=usr/local/cuda-10.0/compat/
-    $PYTHON -c "import pyarrow.cuda"
-    $PYTHON -c "import pyarrow.plasma"
-fi
