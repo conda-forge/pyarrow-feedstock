@@ -34,8 +34,7 @@ requirements:
   host:
     # directly pin boost-cpp as we also seem to directly include boost symbols
     # in the Python modules.
-    - arrow-cpp {{ version }}
-    - arrow-cpp-proc * {{ build_ext }}
+    - arrow-cpp ={{ version }}=*{{ build_ext }}
     - boost-cpp
     - cython
     - numpy 1.16.*
