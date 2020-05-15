@@ -71,7 +71,15 @@ test:
     - pyarrow.fs
     - pyarrow._s3fs
     - pyarrow._hdfs
-    - pyarrow.cuda     # [linux and cuda_compiler_version != "None"]
+    - pyarrow.cuda                                            # [linux and cuda_compiler_version != "None"]
+  requires:                                                   # [linux and cuda_compiler_version != "None"]
+    - pytest                                                  # [linux and cuda_compiler_version != "None"]
+    - numba                                                   # [linux and cuda_compiler_version != "None"]
+  source_files:                                               # [linux and cuda_compiler_version != "None"]
+    - python/pyarrow/tests/                                   # [linux and cuda_compiler_version != "None"]
+  commands:                                                   # [linux and cuda_compiler_version != "None"]
+    - python python/pyarrow/tests/test_cuda.py                # [linux and cuda_compiler_version != "None"]
+    - python python/pyarrow/tests/test_cuda_numba_interop.py  # [linux and cuda_compiler_version != "None"]
 
 about:
   home: http://github.com/apache/arrow
