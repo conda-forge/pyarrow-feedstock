@@ -2,7 +2,7 @@
 {% set filename = "apache-arrow-" + version + ".tar.gz" %}
 {% set checksum = "261992de4029a1593195ff4000501503bd403146471b3168bd2cc414ad0fb7f5" %}
 {% set number = "3" %}
-{% set cuda_enabled = cuda_compiler_version is not undefined and cuda_compiler_version == '9.2' %}
+{% set cuda_enabled = cuda_compiler_version is not undefined and cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 
 package:
@@ -17,7 +17,6 @@ source:
 build:
   number: {{ number }}
   string: "py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ number }}_{{ build_ext }}"
-  skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
   track_features:
     {{ "- arrow-cuda" if cuda_enabled else "" }}
   activate_in_script: True
@@ -30,7 +29,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     # pyarrow does not require nvcc but it needs to link against libraries in arrow-cpp=*=*cuda
-    - {{ compiler("cuda") }}  # [cuda_compiler_version is not undefined and cuda_compiler_version == '9.2']
+    - {{ compiler("cuda") }}  # [cuda_compiler_version is not undefined and cuda_compiler_version != "None"]
   host:
     # directly pin boost-cpp as we also seem to directly include boost symbols
     # in the Python modules.
