@@ -71,9 +71,7 @@ test:
     - pyarrow._s3fs
     - pyarrow._hdfs
     # We can only test importing cuda package but cannot run when a
-    # CUDA device is not available, for instance, when building from a
-    # CI. That said, the pyarrow.cuda import test is carried out in
-    # the build script.
+    # CUDA device is not available, for instance, when building from CI.
     - pyarrow.cuda          # [cuda_compiler_version not in (undefined, "None")]
 
 about:
