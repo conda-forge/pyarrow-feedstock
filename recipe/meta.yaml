@@ -17,7 +17,7 @@ source:
 build:
   number: {{ number }}
   string: "py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ number }}_{{ build_ext }}"
-  skip: true              # [cuda_compiler_version not in (undefined, "None", "9.2")]
+  skip: true  # [cuda_compiler_version not in (undefined, "None", "9.2")]
   track_features:
     {{ "- arrow-cuda" if cuda_enabled else "" }}
 
@@ -34,9 +34,6 @@ requirements:
     # directly pin boost-cpp as we also seem to directly include boost symbols
     # in the Python modules.
     - arrow-cpp ={{ version }}=*{{ build_ext }}
-    # The version of re2 should match with the version that arrow-cpp
-    # was built against:
-    - re2 2020.04.*
     - boost-cpp
     - cython
     - numpy 1.16.*
@@ -47,7 +44,6 @@ requirements:
     - {{ pin_compatible('numpy', lower_bound='1.16') }}
     - boost-cpp
     - arrow-cpp ={{ version }}=*{{ build_ext }}
-    - re2 2020.04.*
     - glog
     - pandas
     # empty parquet-cpp metapackage, force old versions to be uninstalled
@@ -56,7 +52,7 @@ requirements:
     - snappy
   run_constrained:
     - arrow-cpp-proc * {{ build_ext }}
-    - cudatoolkit >=9.2         # [cuda_compiler_version not in (undefined, "None")]
+    - cudatoolkit >=9.2  # [cuda_compiler_version not in (undefined, "None")]
 
 test:
   imports:
@@ -72,7 +68,7 @@ test:
     - pyarrow._hdfs
     # We can only test importing cuda package but cannot run when a
     # CUDA device is not available, for instance, when building from CI.
-    - pyarrow.cuda          # [cuda_compiler_version not in (undefined, "None")]
+    - pyarrow.cuda     # [cuda_compiler_version not in (undefined, "None")]
 
 about:
   home: http://github.com/apache/arrow
