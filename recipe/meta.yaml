@@ -1,6 +1,9 @@
 {% set version = "0.16.0" %}
 {% set filename = "apache-arrow-" + version + ".tar.gz" %}
 {% set checksum = "261992de4029a1593195ff4000501503bd403146471b3168bd2cc414ad0fb7f5" %}
+{% set number = "3" %}
+{% set cuda_enabled = cuda_compiler_version is not undefined and cuda_compiler_version != "None" %}
+{% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 
 package:
   name: pyarrow
@@ -12,7 +15,11 @@ source:
   sha256: {{ checksum }}
 
 build:
-  number: 2
+  number: {{ number }}
+  string: "py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ number }}_{{ build_ext }}"
+  skip: true  # [cuda_compiler_version not in (undefined, "None", "9.2")]
+  track_features:
+    {{ "- arrow-cuda" if cuda_enabled else "" }}
 
 requirements:
   build:
@@ -21,42 +28,47 @@ requirements:
     - make  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    # pyarrow does not require nvcc but it needs to link against libraries in arrow-cpp=*=*cuda
+    - {{ compiler("cuda") }}  # [cuda_compiler_version not in (undefined, "None")]
   host:
     # directly pin boost-cpp as we also seem to directly include boost symbols
     # in the Python modules.
-    - arrow-cpp {{ version }}
+    - arrow-cpp ={{ version }}=*{{ build_ext }}
     - boost-cpp
     - cython
     - numpy 1.16.*
     - python
     - setuptools
     - setuptools_scm
-    - six
-
   run:
     - {{ pin_compatible('numpy', lower_bound='1.16') }}
     - boost-cpp
-    - futures  # [py==27]
+    - arrow-cpp ={{ version }}=*{{ build_ext }}
     - glog
     - pandas
     # empty parquet-cpp metapackage, force old versions to be uninstalled
     - parquet-cpp 1.5.1.*
     - python
-    - six
     - snappy
+  run_constrained:
+    - arrow-cpp-proc * {{ build_ext }}
+    - cudatoolkit >=9.2  # [cuda_compiler_version not in (undefined, "None")]
 
 test:
   imports:
     - pyarrow
-    - pyarrow.dataset  # [not py==27]
-    - pyarrow.flight   # [not py==27]
-    - pyarrow.gandiva  # [(not py==27) and (not (aarch64 or ppc64le))]
+    - pyarrow.dataset
+    - pyarrow.flight
+    - pyarrow.gandiva  # [not (aarch64 or ppc64le)]
     - pyarrow.orc      # [unix]
     - pyarrow.parquet
     - pyarrow.plasma   # [unix]
     - pyarrow.fs
     - pyarrow._s3fs
     - pyarrow._hdfs
+    # We can only test importing cuda package but cannot run when a
+    # CUDA device is not available, for instance, when building from CI.
+    - pyarrow.cuda     # [cuda_compiler_version not in (undefined, "None")]
 
 about:
   home: http://github.com/apache/arrow
@@ -76,3 +88,4 @@ extra:
     - kou
     - kszucs
     - pitrou
+    - pearu
