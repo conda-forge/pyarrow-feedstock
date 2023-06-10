@@ -103,7 +103,7 @@ outputs:
         - pyarrow
         # Compute can be imported but the underlying libarrow_acero is not present.
         - pyarrow.compute
-        - pyarrow.orc      # [unix]
+        - pyarrow.orc
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
