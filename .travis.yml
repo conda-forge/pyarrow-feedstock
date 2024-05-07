@@ -1,0 +1,43 @@
+# This file was generated automatically from conda-smithy. To update this configuration,
+# update the conda-forge.yml and/or the recipe/meta.yaml.
+
+language: generic
+
+env:
+  global:
+    # The BINSTAR_TOKEN secure variable. This is defined canonically in conda-forge.yml.
+    - secure: "EiOFEzM1XtKqTQqSo+nnIzIaNJpZxWsI1GJ8unI+eD9V519APMGNcflft6G1zuO0GcUEnUJlqvURRi8QQHow1Ay6Nvrmwf+2CGUfgmqjtQDRo15ObwzTqDZxMFpMgUMIpuLRa5vIwYDW5/hNOcxgaIx6sqDVSa0EsZY0KFBbHkfaqiX2h6iSN3H3KOG9Y3tjRf00DBGZbbqY+uKszH9aX18f+uKKiNh2uLFfalcyePEmKInqqLFDtY4g0X+FOMYm31ZaHTJCgyPvnLhExw57WnuUs3Vvra+ibYZgjPmHB67xVIhqWe0VQPXCCAXAosDK16OTtzcQUe3Cycrp/K1cbjo4hcUQLQnzpgmNhIBuk6ttGSnyCeyr/otgqaF+Ah43FbJlqmq6hD75cdHNhbkvnde6Z2jpOHe2MOL4EvOb6qJn/YE6HN3zoYaKFzT6qqotQIoBf7oYi6VHAztO6kpwv6CAeVJnTtTj8YOOUyv6GWGXn1e4ehyhg9zkR5BPlvj05p+oaw2BcL3Qj7khZOog066NcxjBRlkZcfL9BXBPeCa2/k4RmzzNcdfCX/PdMY0JfzD03g6NGLCt0jJHhaXKS78WzwOjVVz00cz1jhCcPLTBQn9OqZHPmAxbE6BULuuFdlxnxdooQSJavVj5cdxR6oexSI+vEXjIEDcMEZgXph8="
+
+matrix:
+  include:
+    - env: CONFIG=linux_aarch64_python3.10.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-aarch64 DOCKER_IMAGE=quay.io/condaforge/linux-anvil-aarch64
+      os: linux
+      arch: arm64
+      dist: focal
+
+    - env: CONFIG=linux_aarch64_python3.11.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-aarch64 DOCKER_IMAGE=quay.io/condaforge/linux-anvil-aarch64
+      os: linux
+      arch: arm64
+      dist: focal
+
+    - env: CONFIG=linux_aarch64_python3.8.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-aarch64 DOCKER_IMAGE=quay.io/condaforge/linux-anvil-aarch64
+      os: linux
+      arch: arm64
+      dist: focal
+
+    - env: CONFIG=linux_aarch64_python3.9.____cpython UPLOAD_PACKAGES=True PLATFORM=linux-aarch64 DOCKER_IMAGE=quay.io/condaforge/linux-anvil-aarch64
+      os: linux
+      arch: arm64
+      dist: focal
+
+script:
+  - export CI=travis
+  - export GIT_BRANCH="$TRAVIS_BRANCH"
+  - export flow_run_id="travis_$TRAVIS_JOB_ID"
+  - export sha="$TRAVIS_COMMIT"
+  - export remote_url="https://github.com/$TRAVIS_REPO_SLUG"
+  - export FEEDSTOCK_NAME=$(basename ${TRAVIS_REPO_SLUG})
+  - if [[ "${TRAVIS_PULL_REQUEST:-}" == "false" ]]; then export IS_PR_BUILD="False"; else export IS_PR_BUILD="True"; fi
+
+
+  - if [[ ${PLATFORM} =~ .*linux.* ]]; then CONDA_FORGE_DOCKER_RUN_ARGS="--network=host --security-opt=seccomp=unconfined" ./.scripts/run_docker_build.sh; fi
