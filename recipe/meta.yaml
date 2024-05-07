@@ -1,12 +1,7 @@
 {% set version = "16.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
-{% set build_ext_version = "5.0.0" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
-{% set proc_build_number = "0" %}
 {% set llvm_version = "16" %}
-
-# see https://github.com/apache/arrow/blob/apache-arrow-10.0.1/cpp/CMakeLists.txt#L88-L90
-{% set so_version = (version.split(".")[0] | int * 100 + version.split(".")[1] | int) ~ "." ~ version.split(".")[2] ~ ".0" %}
 
 package:
   name: apache-arrow
@@ -33,58 +28,6 @@ build:
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
   # arrow promises API- & ABI-compatibility along SemVer, see #1096
 
-requirements:
-  build:
-    - {{ compiler("c") }}
-    - {{ stdlib("c") }}
-    - {{ compiler("cxx") }}
-    - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
-    # needs to run protoc & grpc_cpp_plugin
-    - libgrpc                                # [build_platform != target_platform]
-    - libprotobuf                            # [build_platform != target_platform]
-    # needed for gandiva
-    - clangdev {{ llvm_version }}            # [build_platform != target_platform]
-    - llvmdev {{ llvm_version }}             # [build_platform != target_platform]
-    - gnuconfig                              # [build_platform != target_platform]
-    - cmake
-    - ninja
-    # necessary for vendored jemalloc
-    - autoconf     # [linux]
-    - make         # [linux]
-  host:
-    # for required dependencies, see
-    # https://github.com/apache/arrow/blob/apache-arrow-11.0.0/cpp/cmake_modules/ThirdpartyToolchain.cmake#L46-L75
-    - clangdev {{ llvm_version }}
-    - llvmdev {{ llvm_version }}
-    - aws-crt-cpp
-    - aws-sdk-cpp
-    - brotli
-    - bzip2
-    # not yet: https://github.com/conda-forge/cpp-opentelemetry-sdk-feedstock/issues/38
-    # - cpp-opentelemetry-sdk
-    # - proto-opentelemetry-proto =={{ cpp_opentelemetry_sdk }}
-    - gflags
-    - glog
-    # arrow uses a customized jemalloc, see #944
-    # - jemalloc
-    - libabseil
-    - libboost-headers
-    - libgoogle-cloud-devel
-    - libgoogle-cloud-storage-devel
-    - libgrpc
-    - libutf8proc
-    - lz4-c
-    - nlohmann_json
-    - orc
-    - rapidjson
-    - re2
-    - snappy
-    - thrift-cpp
-    - ucx          # [linux]
-    - xsimd
-    - zlib
-    - zstd
-
 outputs:
   - name: pyarrow-core
     script: build-pyarrow.sh   # [unix]
@@ -94,6 +37,7 @@ outputs:
       string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ build_ext }}
       ignore_run_exports_from:
         - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
+        - libarrow-all
       track_features: {{ "[arrow-cuda]" if cuda_enabled else "" }}
       rpaths:
         - lib/
@@ -130,11 +74,9 @@ outputs:
         - cmake
         - ninja
       host:
-        # We add all libarrow package dependencies on host in order to build pyarrow
-        # once with all capabilities. We require the exact hash versions but we don't
-        # want those to be installed when running for pyarrow-core as we want a
-        # low memory footprint for the pyarrow-core package.
-        - {{ pin_subpackage("libarrow-all", exact=True) }}
+        # We add all libarrow package dependencies on host in order
+        # to build pyarrow once with all capabilities.
+        - libarrow-all {{ version }}.*=*{{ build_ext }}
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
@@ -144,7 +86,10 @@ outputs:
         - setuptools
         - setuptools-scm
       run:
-        - {{ pin_subpackage("libarrow", exact=True) }}
+        # We ignore the run-exports from libarrow-all and restrict to only
+        # libarrow, as we don't want the other libraries to be installed when
+        # running for pyarrow-core, where the aim is a low storage footprint.
+        - libarrow {{ version }}.*=*{{ build_ext }}
         - {{ pin_compatible('numpy') }}
         - python
       run_constrained:
@@ -209,12 +154,12 @@ outputs:
         - python
         - numpy
       run:
-        # Default doesn't contain flight, flight-sql and gandiva
-        - {{ pin_subpackage("libarrow-acero", exact=True) }}
-        - {{ pin_subpackage("libarrow-dataset", exact=True) }}
-        - {{ pin_subpackage("libarrow-substrait", exact=True) }}
-        - {{ pin_subpackage("libparquet", exact=True) }}
         - {{ pin_subpackage("pyarrow-core", exact=True) }}
+        # Default doesn't contain flight, flight-sql and gandiva
+        - libarrow-acero {{ version }}.*=*{{ build_ext }}
+        - libarrow-dataset {{ version }}.*=*{{ build_ext }}
+        - libarrow-substrait {{ version }}.*=*{{ build_ext }}
+        - libparquet {{ version }}.*=*{{ build_ext }}
         - {{ pin_compatible('numpy') }}
         - python
       run_constrained:
@@ -251,10 +196,10 @@ outputs:
         - python
         - numpy
       run:
-        - {{ pin_subpackage("libarrow-flight", exact=True) }}
-        - {{ pin_subpackage("libarrow-flight-sql", exact=True) }}
-        - {{ pin_subpackage("libarrow-gandiva", exact=True) }}
         - {{ pin_subpackage("pyarrow", exact=True) }}
+        - libarrow-flight {{ version }}.*=*{{ build_ext }}
+        - libarrow-flight-sql {{ version }}.*=*{{ build_ext }}
+        - libarrow-gandiva {{ version }}.*=*{{ build_ext }}
         - {{ pin_compatible('numpy') }}
         - python
       run_constrained:
@@ -294,8 +239,8 @@ outputs:
         - cmake
         - ninja
       host:
-        - {{ pin_subpackage("libarrow-all", exact=True) }}
         - {{ pin_subpackage('pyarrow-all', exact=True) }}
+        - libarrow-all {{ version }}.*=*{{ build_ext }}
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
@@ -391,24 +336,12 @@ about:
   license: Apache-2.0
   license_file:
     - LICENSE.txt
-  summary: C++ and Python libraries for Apache Arrow
+  summary: Python libraries for Apache Arrow
 
 extra:
   recipe-maintainers:
-    - wesm
     - xhochy
-    - leifwalsh
-    - jreback
-    - cpcloud
-    - pcmoritz
-    - robertnishihara
-    - siddharthteotia
-    - kou
-    - kszucs
-    - pitrou
-    - pearu
-    - nealrichardson
-    - jakirkham
     - h-vetinari
     - raulcd
-  feedstock-name: arrow-cpp
+    - conda-forge/arrow-cpp
+  feedstock-name: pyarrow
