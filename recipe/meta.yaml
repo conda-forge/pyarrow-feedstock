@@ -147,24 +147,21 @@ outputs:
 
   - name: pyarrow
     version: {{ version }}
-    build:
-      string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ build_ext }}
     requirements:
       host:
         # only necessary for run-exports
         - python
         - numpy
       run:
-        - {{ pin_subpackage("pyarrow-core", exact=True) }}
+        # do not use pin_compatible because pyarrow-core has CUDA/non-CUDA variants
+        - pyarrow-core {{ version }}=*_{{ PKG_BUILDNUM }}_*
         # Default doesn't contain flight, flight-sql and gandiva
-        - libarrow-acero {{ version }}.*=*{{ build_ext }}
-        - libarrow-dataset {{ version }}.*=*{{ build_ext }}
-        - libarrow-substrait {{ version }}.*=*{{ build_ext }}
-        - libparquet {{ version }}.*=*{{ build_ext }}
+        - libarrow-acero {{ version }}.*
+        - libarrow-dataset {{ version }}.*
+        - libarrow-substrait {{ version }}.*
+        - libparquet {{ version }}.*
         - {{ pin_compatible('numpy') }}
         - python
-      run_constrained:
-        - apache-arrow-proc =*={{ build_ext }}
 
     test:
       files:
@@ -189,22 +186,18 @@ outputs:
 
   - name: pyarrow-all
     version: {{ version }}
-    build:
-      string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ build_ext }}
     requirements:
       host:
         # only necessary for run-exports
         - python
         - numpy
       run:
-        - {{ pin_subpackage("pyarrow", exact=True) }}
-        - libarrow-flight {{ version }}.*=*{{ build_ext }}
-        - libarrow-flight-sql {{ version }}.*=*{{ build_ext }}
-        - libarrow-gandiva {{ version }}.*=*{{ build_ext }}
+        - pyarrow {{ version }}=*_{{ PKG_BUILDNUM }}
+        - libarrow-flight {{ version }}.*
+        - libarrow-flight-sql {{ version }}.*
+        - libarrow-gandiva {{ version }}.*
         - {{ pin_compatible('numpy') }}
         - python
-      run_constrained:
-        - apache-arrow-proc =*={{ build_ext }}
 
     test:
       imports:
@@ -222,17 +215,12 @@ outputs:
     script: build-pyarrow.bat  # [win]
     version: {{ version }}
     build:
-      string: py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ build_ext }}
-      ignore_run_exports_from:
-        - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
-      track_features: {{ "[arrow-cuda]" if cuda_enabled else "" }}
+      skip: true               # [cuda_compiler_version != "None"]
     requirements:
       build:
         - {{ compiler("c") }}
         - {{ stdlib("c") }}
         - {{ compiler("cxx") }}
-        # pyarrow does not require nvcc but it needs to link against libraries in libarrow=*=*cuda
-        - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - cython                                 # [build_platform != target_platform]
@@ -240,8 +228,8 @@ outputs:
         - cmake
         - ninja
       host:
-        - {{ pin_subpackage('pyarrow-all', exact=True) }}
-        - libarrow-all {{ version }}.*=*{{ build_ext }}
+        - pyarrow-all {{ version }}=*_{{ PKG_BUILDNUM }}
+        - libarrow-all {{ version }}.*
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
@@ -251,10 +239,8 @@ outputs:
         - setuptools
         - setuptools-scm
       run:
-        - {{ pin_subpackage('pyarrow-all', exact=True) }}
+        - pyarrow-all {{ version }}=*_{{ PKG_BUILDNUM }}
         - python
-      run_constrained:
-        - apache-arrow-proc =*={{ build_ext }}
 
     test:
       requires:
