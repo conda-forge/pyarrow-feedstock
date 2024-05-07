@@ -14,8 +14,6 @@ source:
     patches:
       # workaround for https://github.com/apache/arrow/issues/37692
       - patches/0001-fixture-teardown-should-not-fail-test.patch
-      # backport https://github.com/apache/arrow/issues/41333 to find correct protobuf
-      - patches/0002-find-protobuf-config-instead-of-module.patch
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 25d16511e8d42c2744a1d94d90169e3a36e92631
