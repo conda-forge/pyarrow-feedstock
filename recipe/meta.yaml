@@ -255,10 +255,6 @@ outputs:
       run_constrained:
         - apache-arrow-proc =*={{ build_ext }}
 
-    {% if not (aarch64 or ppc64le) or py == 311 %}
-    # only run the full test suite for one python version when in emulation
-    # (each run can take up to ~45min); there's essentially zero divergence
-    # in behaviour across python versions anyway
     test:
       requires:
         # test_cpp_extension_in_python requires a compiler
@@ -322,7 +318,6 @@ outputs:
         {% set tests_to_skip = tests_to_skip + " or test_float_with_null_as_integer" %}             # [ppc64le]
         # ^^^^^^^ TESTS THAT SHOULDN'T HAVE TO BE SKIPPED ^^^^^^^
         - pytest pyarrow/ -rfEs -k "not ({{ tests_to_skip }})"
-    {% endif %}
 
     about:
       home: http://github.com/apache/arrow
