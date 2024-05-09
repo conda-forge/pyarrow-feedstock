@@ -149,10 +149,11 @@ outputs:
 
   - name: pyarrow
     version: {{ version }}
+    build:
+      noarch: python
     requirements:
       host:
-        # only necessary for run-exports
-        - python
+        - python {{ python_min }}
       run:
         # do not use pin_compatible because pyarrow-core has CUDA/non-CUDA variants
         - pyarrow-core {{ version }}=*_{{ PKG_BUILDNUM }}_*
@@ -161,9 +162,10 @@ outputs:
         - libarrow-dataset {{ version }}.*
         - libarrow-substrait {{ version }}.*
         - libparquet {{ version }}.*
-        - python
-
+        - python >={{ python_min }}
     test:
+      requires:
+        - python {{ python_min }}
       files:
         - test_read_parquet.py
       imports:
@@ -186,18 +188,20 @@ outputs:
 
   - name: pyarrow-all
     version: {{ version }}
+    build:
+      noarch: python
     requirements:
       host:
-        # only necessary for run-exports
-        - python
+        - python {{ python_min }}
       run:
         - pyarrow {{ version }}=*_{{ PKG_BUILDNUM }}
         - libarrow-flight {{ version }}.*
         - libarrow-flight-sql {{ version }}.*
         - libarrow-gandiva {{ version }}.*
-        - python
-
+        - python >={{ python_min }}
     test:
+      requires:
+        - python {{ python_min }}
       imports:
         - pyarrow.flight
         - pyarrow.gandiva
