@@ -92,6 +92,8 @@ outputs:
         - libarrow {{ version }}.*=*{{ build_ext }}
         - {{ pin_compatible('numpy') }}
         - python
+        # orc>=2.0.1 will look in $CONDA_PREFIX/share/zoneinfo
+        - tzdata
         # this is redundant with libarrow, but we want smithy to pick up that
         # cuda_compiler_version_min is present, to populate the CI configs
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
