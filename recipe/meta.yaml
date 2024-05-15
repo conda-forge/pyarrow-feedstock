@@ -270,7 +270,7 @@ outputs:
         # doesn't get picked up correctly
         # - libhdfs3
         # causes segfaults
-        # - sparse
+        - sparse
       source_files:
         - testing/data
       commands:
