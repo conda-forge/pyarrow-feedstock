@@ -1,4 +1,4 @@
-{% set version = "16.0.0" %}
+{% set version = "16.1.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "16" %}
@@ -10,7 +10,7 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: 9f4051ae9473c97991d9af801e2f94ae3455067719ca7f90b8137f9e9a700b8d
+    sha256: c9e60c7e87e59383d21b20dc874b17153729ee153264af6d21654b7dff2c60d7
     patches:
       # workaround for https://github.com/apache/arrow/issues/37692
       - patches/0001-fixture-teardown-should-not-fail-test.patch
@@ -261,6 +261,7 @@ outputs:
         - pandas
         - s3fs >=2023
         - scipy
+        - sparse
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
@@ -269,8 +270,6 @@ outputs:
         # - jpype1
         # doesn't get picked up correctly
         # - libhdfs3
-        # causes segfaults
-        # - sparse
       source_files:
         - testing/data
       commands:
