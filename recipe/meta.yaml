@@ -99,6 +99,8 @@ outputs:
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc =*={{ build_ext }}
+        # need new enough orc for using our own tzdb
+        - orc >=2.0.1
 
     test:
       imports:
