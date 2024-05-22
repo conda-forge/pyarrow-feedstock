@@ -14,15 +14,17 @@ source:
     patches:
       # workaround for https://github.com/apache/arrow/issues/37692
       - patches/0001-fixture-teardown-should-not-fail-test.patch
-      # workaround for https://github.com/conda-forge/pyarrow-feedstock/issues/117
+      # backport https://github.com/apache/arrow/pull/41754
       - patches/0002-try-harder-to-set-up-s3_server-fixture.patch
+      # backport https://github.com/apache/arrow/pull/41768
+      - patches/0003-increase-timeout-in-TestThreadedCSVTableRead-test_ca.patch
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 25d16511e8d42c2744a1d94d90169e3a36e92631
     folder: testing
 
 build:
-  number: 0
+  number: 1
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -92,18 +94,22 @@ outputs:
         - libarrow {{ version }}.*=*{{ build_ext }}
         - {{ pin_compatible('numpy') }}
         - python
+        # orc>=2.0.1 will look in $CONDA_PREFIX/share/zoneinfo
+        - tzdata
         # this is redundant with libarrow, but we want smithy to pick up that
         # cuda_compiler_version_min is present, to populate the CI configs
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc =*={{ build_ext }}
+        # need new enough orc for using our own tzdb
+        - orc >=2.0.1
 
     test:
       imports:
         - pyarrow
         # Compute can be imported but the underlying libarrow_acero is not present.
         - pyarrow.compute
-        - pyarrow.orc      # [unix]
+        - pyarrow.orc
         - pyarrow.fs
         - pyarrow._s3fs
         - pyarrow._hdfs
