@@ -15,9 +15,11 @@ source:
       # workaround for https://github.com/apache/arrow/issues/37692
       - patches/0001-fixture-teardown-should-not-fail-test.patch
       # backport https://github.com/apache/arrow/pull/41754
-      - patches/0002-try-harder-to-set-up-s3_server-fixture.patch
+      - patches/0002-MINOR-Python-try-harder-to-set-up-s3_server-fixture-.patch
       # backport https://github.com/apache/arrow/pull/41768
-      - patches/0003-increase-timeout-in-TestThreadedCSVTableRead-test_ca.patch
+      - patches/0003-MINOR-Python-Increase-timeout-in-TestThreadedCSVTabl.patch
+      # fix for https://github.com/apache/arrow/issues/41319
+      - patches/0004-fix-skip-for-numpy-2.0-to-include-rc-s.patch
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 25d16511e8d42c2744a1d94d90169e3a36e92631
