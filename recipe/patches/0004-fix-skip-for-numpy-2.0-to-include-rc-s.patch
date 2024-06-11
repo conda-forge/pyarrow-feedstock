@@ -1,7 +1,7 @@
 From 5c0586e2ba9286741a14969ddce8482c6752a30c Mon Sep 17 00:00:00 2001
 From: Ben Greiner <code@bnavigator.de>
 Date: Thu, 25 Apr 2024 11:04:10 +0200
-Subject: [PATCH 4/4] fix skip for numpy 2.0 to include rc's
+Subject: [PATCH 4/5] fix skip for numpy 2.0 to include rc's
 
 ---
  python/pyarrow/tests/test_array.py | 2 +-
@@ -9,7 +9,7 @@ Subject: [PATCH 4/4] fix skip for numpy 2.0 to include rc's
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/python/pyarrow/tests/test_array.py b/python/pyarrow/tests/test_array.py
-index 156d58326..dfa7c83ef 100644
+index 156d58326b..dfa7c83eff 100644
 --- a/python/pyarrow/tests/test_array.py
 +++ b/python/pyarrow/tests/test_array.py
 @@ -3323,7 +3323,7 @@ def test_numpy_array_protocol():
@@ -22,7 +22,7 @@ index 156d58326..dfa7c83ef 100644
          result = np.array(arr, copy=False)
          np.testing.assert_array_equal(result, expected)
 diff --git a/python/pyarrow/tests/test_table.py b/python/pyarrow/tests/test_table.py
-index e11efa64d..9b963bb9c 100644
+index e11efa64db..9b963bb9cb 100644
 --- a/python/pyarrow/tests/test_table.py
 +++ b/python/pyarrow/tests/test_table.py
 @@ -3244,7 +3244,7 @@ def test_numpy_array_protocol(constructor):

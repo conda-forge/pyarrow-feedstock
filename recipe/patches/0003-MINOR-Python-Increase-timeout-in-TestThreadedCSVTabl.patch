@@ -1,7 +1,7 @@
 From a013f41d4809b7a6c8ef887eab9159fc32b35571 Mon Sep 17 00:00:00 2001
 From: h-vetinari <h.vetinari@gmx.com>
 Date: Fri, 24 May 2024 02:11:18 +1100
-Subject: [PATCH 3/4] MINOR: [Python] Increase timeout in
+Subject: [PATCH 3/5] MINOR: [Python] Increase timeout in
  TestThreadedCSVTableRead::test_cancellation (#41768)
 
 We hit this in conda-forge on some runners:
@@ -31,7 +31,7 @@ Signed-off-by: Antoine Pitrou <antoine@python.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/python/pyarrow/tests/test_csv.py b/python/pyarrow/tests/test_csv.py
-index bc1dd8a09..9ddb5197e 100644
+index bc1dd8a09a..9ddb5197e9 100644
 --- a/python/pyarrow/tests/test_csv.py
 +++ b/python/pyarrow/tests/test_csv.py
 @@ -1470,7 +1470,7 @@ class BaseCSVTableRead(BaseTestCSV):
