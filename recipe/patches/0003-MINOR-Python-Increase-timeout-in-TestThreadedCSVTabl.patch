@@ -1,7 +1,7 @@
 From a013f41d4809b7a6c8ef887eab9159fc32b35571 Mon Sep 17 00:00:00 2001
 From: h-vetinari <h.vetinari@gmx.com>
 Date: Fri, 24 May 2024 02:11:18 +1100
-Subject: [PATCH 3/5] MINOR: [Python] Increase timeout in
+Subject: [PATCH 3/4] MINOR: [Python] Increase timeout in
  TestThreadedCSVTableRead::test_cancellation (#41768)
 
 We hit this in conda-forge on some runners:
