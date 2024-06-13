@@ -26,7 +26,7 @@ source:
     folder: testing
 
 build:
-  number: 2
+  number: 3
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -94,7 +94,6 @@ outputs:
         # libarrow, as we don't want the other libraries to be installed when
         # running for pyarrow-core, where the aim is a low storage footprint.
         - libarrow {{ version }}.*=*{{ build_ext }}
-        - {{ pin_compatible('numpy') }}
         - python
         # orc>=2.0.1 will look in $CONDA_PREFIX/share/zoneinfo
         - tzdata
@@ -170,7 +169,6 @@ outputs:
         - libarrow-dataset {{ version }}.*
         - libarrow-substrait {{ version }}.*
         - libparquet {{ version }}.*
-        - {{ pin_compatible('numpy') }}
         - python
 
     test:
@@ -206,7 +204,6 @@ outputs:
         - libarrow-flight {{ version }}.*
         - libarrow-flight-sql {{ version }}.*
         - libarrow-gandiva {{ version }}.*
-        - {{ pin_compatible('numpy') }}
         - python
 
     test:
