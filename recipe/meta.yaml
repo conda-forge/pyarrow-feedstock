@@ -26,11 +26,10 @@ source:
     folder: testing
 
 build:
-  number: 3
+  number: 4
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
-  # arrow promises API- & ABI-compatibility along SemVer, see #1096
 
 outputs:
   - name: pyarrow-core
@@ -95,8 +94,6 @@ outputs:
         # running for pyarrow-core, where the aim is a low storage footprint.
         - libarrow {{ version }}.*=*{{ build_ext }}
         - python
-        # orc>=2.0.1 will look in $CONDA_PREFIX/share/zoneinfo
-        - tzdata
         # this is redundant with libarrow, but we want smithy to pick up that
         # cuda_compiler_version_min is present, to populate the CI configs
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
@@ -104,6 +101,11 @@ outputs:
         - apache-arrow-proc =*={{ build_ext }}
         # need new enough orc for using our own tzdb
         - orc >=2.0.1
+        # need libarrow builds from that have azure bindings built, i.e.
+        # https://github.com/conda-forge/arrow-cpp-feedstock/pull/1431 or later;
+        # to ensure a new enough library is selected, enforce most recently done
+        # migration as a run-constraint (can be dropped for v17)
+        - aws-crt-cpp >=0.26.12
 
     test:
       imports:
@@ -266,8 +268,7 @@ outputs:
         - pandas
         - s3fs >=2023
         - scipy
-        # disable until numba is rebuilt for numpy 2.0
-        # - sparse
+        - sparse
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
