@@ -3,13 +3,13 @@ c_compiler:
 c_stdlib:
 - vs
 channel_sources:
-- conda-forge/label/numpy_rc,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- nvcc
+- None
 cuda_compiler_version:
-- '11.8'
+- None
 cuda_compiler_version_min:
 - '11.8'
 cxx_compiler:
@@ -17,13 +17,13 @@ cxx_compiler:
 libarrow_all:
 - '16'
 numpy:
-- '2.0'
+- '1.22'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.8.* *_cpython
 target_platform:
 - win-64
 zip_keys:
