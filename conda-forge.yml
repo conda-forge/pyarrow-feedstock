@@ -13,4 +13,7 @@ github:
 provider:
   linux_aarch64: azure
   linux_ppc64le: azure
+remote_ci_setup:
+- conda-forge-ci-setup=4
+- conda-build>=24.7
 test: native_and_emulated
