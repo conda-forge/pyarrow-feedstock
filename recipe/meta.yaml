@@ -1,7 +1,7 @@
 {% set version = "17.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
-{% set llvm_version = "16" %}
+{% set llvm_version = "17" %}
 
 package:
   name: apache-arrow
