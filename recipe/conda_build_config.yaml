@@ -10,11 +10,8 @@ cxx_compiler_version:          # [unix]
   - 13                         # [linux and (aarch64 or ppc64le)]
   - 10                         # [linux and (aarch64 or ppc64le)]
 
-# override global pinning to only take one version
+# avoid smithy blowing up CI jobs due to multiple verions in global pinning
 libarrow:
-  - 16
+  - "*"
 libarrow_all:
-  - 16
-# currently still zipped with arrow_cpp in global pinning
-arrow_cpp:
-  - 16
+  - "*"
