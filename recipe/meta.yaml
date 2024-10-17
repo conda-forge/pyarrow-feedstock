@@ -35,7 +35,6 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
         - libarrow-all
-      track_features: {{ "[arrow-cuda]" if cuda_enabled else "" }}
       rpaths:
         - lib/
         - {{ SP_DIR }}/pyarrow
