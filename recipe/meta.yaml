@@ -225,6 +225,8 @@ outputs:
       host:
         - pyarrow-all {{ version }}=*_{{ PKG_BUILDNUM }}
         - libarrow-all {{ version }}.*
+        # only for helping resolver
+        - libarrow {{ version }}.*=*{{ build_ext }}
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
