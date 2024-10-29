@@ -1,7 +1,7 @@
-{% set version = "17.0.0" %}
+{% set version = "18.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
-{% set llvm_version = "17" %}
+{% set llvm_version = "18" %}
 
 package:
   name: apache-arrow
@@ -10,17 +10,17 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: 9d280d8042e7cf526f8c28d170d93bfab65e50f94569f6a790982a878d8d898d
-    patches:
-      # workaround for https://github.com/apache/arrow/issues/37692
-      - patches/0001-fixture-teardown-should-not-fail-test.patch
+    sha256: abcf1934cd0cdddd33664e9f2d9a251d6c55239d1122ad0ed223b13a583c82a9
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 735ae7128d571398dd798d7ff004adebeb342883
     folder: testing
+  - git_url: https://github.com/apache/parquet-testing.git
+    git_rev: cb7a9674142c137367bf75a01b79c6e214a73199
+    folder: cpp/submodules/parquet-testing
 
 build:
-  number: 1
+  number: 0
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -35,7 +35,6 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
         - libarrow-all
-      track_features: {{ "[arrow-cuda]" if cuda_enabled else "" }}
       rpaths:
         - lib/
         - {{ SP_DIR }}/pyarrow
@@ -226,6 +225,8 @@ outputs:
       host:
         - pyarrow-all {{ version }}=*_{{ PKG_BUILDNUM }}
         - libarrow-all {{ version }}.*
+        # only for helping resolver
+        - libarrow {{ version }}.*=*{{ build_ext }}
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
@@ -243,9 +244,6 @@ outputs:
         # test_cpp_extension_in_python requires a compiler
         - {{ compiler("cxx") }}  # [linux]
         - pytest
-        # work around https://github.com/conda-forge/setuptools-feedstock/issues/351
-        - backports.tarfile      # [py<39]
-        - backports.zoneinfo     # [py<39]
         - boto3
         - cffi
         - cloudpickle
@@ -257,7 +255,7 @@ outputs:
         - pandas
         - s3fs >=2023
         - scipy
-        - sparse
+        - sparse        # [py<313]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
@@ -267,12 +265,15 @@ outputs:
         # doesn't get picked up correctly
         # - libhdfs3
       source_files:
+        - cpp/submodules/parquet-testing/data
         - testing/data
       commands:
         - cd ${SP_DIR}                                      # [unix]
         - cd %SP_DIR%                                       # [win]
         - export ARROW_TEST_DATA="${SRC_DIR}/testing/data"  # [unix]
         - set "ARROW_TEST_DATA=%SRC_DIR%\testing\data"      # [win]
+        - export PARQUET_TEST_DATA="${SRC_DIR}/cpp/submodules/parquet-testing/data"  # [unix]
+        - set "PARQUET_TEST_DATA=%SRC_DIR%\cpp\submodules\parquet-testing\data"      # [win]
 
         {% set tests_to_skip = "_not_a_real_test" %}
         # we do not have GPUs in CI --> cannot test cuda
@@ -289,8 +290,6 @@ outputs:
         # vvvvvvv TESTS THAT SHOULDN'T HAVE TO BE SKIPPED vvvvvvv
         # https://github.com/apache/arrow/issues/43800
         {% set tests_to_skip = tests_to_skip + " or test_cpp_extension_in_python" %}                # [osx]
-        # XMinioInvalidObjectName on win: "Object name contains unsupported characters"
-        {% set tests_to_skip = tests_to_skip + " or test_write_to_dataset_with_partitions_s3fs" %}  # [win]
         # https://github.com/apache/arrow/issues/43356
         {% set tests_to_skip = tests_to_skip + " or (test_compute and test_assume_timezone)" %}     # [aarch64 or ppc64le]
         {% set tests_to_skip = tests_to_skip + " or (test_compute and test_strftime)" %}            # [aarch64 or ppc64le]
