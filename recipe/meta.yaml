@@ -20,7 +20,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 0
+  number: 1
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -35,6 +35,7 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
         - libarrow-all
+        - numpy
       rpaths:
         - lib/
         - {{ SP_DIR }}/pyarrow
@@ -92,6 +93,7 @@ outputs:
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc =*={{ build_ext }}
+        - numpy
 
     test:
       imports:
