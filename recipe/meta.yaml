@@ -35,6 +35,7 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
         - libarrow-all
+        # we don't need numpy at runtime, just to build
         - numpy
       rpaths:
         - lib/
