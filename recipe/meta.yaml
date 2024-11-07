@@ -152,7 +152,6 @@ outputs:
       host:
         # only necessary for run-exports
         - python
-        - numpy
       run:
         # do not use pin_compatible because pyarrow-core has CUDA/non-CUDA variants
         - pyarrow-core {{ version }}=*_{{ PKG_BUILDNUM }}_*
@@ -190,7 +189,6 @@ outputs:
       host:
         # only necessary for run-exports
         - python
-        - numpy
       run:
         - pyarrow {{ version }}=*_{{ PKG_BUILDNUM }}
         - libarrow-flight {{ version }}.*
