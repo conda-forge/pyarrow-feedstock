@@ -93,7 +93,9 @@ outputs:
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc =*={{ build_ext }}
-        - numpy
+        # keep lower pin aligned with run_exports from numpy
+        # https://github.com/conda-forge/numpy-feedstock/blob/main/recipe/meta.yaml
+        - {{ pin_compatible("numpy", lower_bound="1.21", max_pin="x") }}
 
     test:
       imports:
