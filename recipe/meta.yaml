@@ -95,7 +95,7 @@ outputs:
         - apache-arrow-proc =*={{ build_ext }}
         # keep lower pin aligned with run_exports from numpy
         # https://github.com/conda-forge/numpy-feedstock/blob/main/recipe/meta.yaml
-        - {{ pin_compatible("numpy", lower_bound="1.21", max_pin="x") }}
+        - numpy >=1.21,<3
 
     test:
       imports:
