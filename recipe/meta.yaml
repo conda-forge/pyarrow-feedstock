@@ -20,7 +20,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 0
+  number: 1
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -35,6 +35,8 @@ outputs:
       ignore_run_exports_from:
         - {{ compiler("cuda") }}                 # [cuda_compiler_version != "None"]
         - libarrow-all
+        # we don't need numpy at runtime, just to build
+        - numpy
       rpaths:
         - lib/
         - {{ SP_DIR }}/pyarrow
@@ -92,6 +94,9 @@ outputs:
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc =*={{ build_ext }}
+        # keep lower pin aligned with run_exports from numpy
+        # https://github.com/conda-forge/numpy-feedstock/blob/main/recipe/meta.yaml
+        - numpy >=1.21,<3
 
     test:
       imports:
@@ -148,7 +153,6 @@ outputs:
       host:
         # only necessary for run-exports
         - python
-        - numpy
       run:
         # do not use pin_compatible because pyarrow-core has CUDA/non-CUDA variants
         - pyarrow-core {{ version }}=*_{{ PKG_BUILDNUM }}_*
@@ -186,7 +190,6 @@ outputs:
       host:
         # only necessary for run-exports
         - python
-        - numpy
       run:
         - pyarrow {{ version }}=*_{{ PKG_BUILDNUM }}
         - libarrow-flight {{ version }}.*
