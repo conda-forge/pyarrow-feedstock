@@ -20,7 +20,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 1
+  number: 2
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -258,9 +258,7 @@ outputs:
         - pandas
         - s3fs >=2023
         - scipy
-        # disabled completely to unblock migration, see
-        # https://github.com/regro/cf-scripts/issues/3198
-        # - sparse
+        - sparse        # [py<313]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
