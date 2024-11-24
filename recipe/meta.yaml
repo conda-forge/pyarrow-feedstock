@@ -299,7 +299,7 @@ outputs:
         {% set tests_to_skip = tests_to_skip + " or (test_compute and test_round_temporal)" %}      # [aarch64 or ppc64le]
         {% set tests_to_skip = tests_to_skip + " or test_extract_datetime_components " %}           # [aarch64 or ppc64le]
         # flaky test that fails regularly on aarch
-        {% set tests_to_skip = tests_to_skip + " or test_feather_format[serial]" %}                 # [aarch64]
+        {% set tests_to_skip = tests_to_skip + " or test_feather_format[serial]" %}                 # [aarch64 or ppc64le]
         # gandiva tests are segfaulting on ppc
         {% set tests_to_skip = tests_to_skip + " or test_gandiva" %}                                # [ppc64le]
         # ^^^^^^^ TESTS THAT SHOULDN'T HAVE TO BE SKIPPED ^^^^^^^
