@@ -1,4 +1,5 @@
-{% set version = "18.0.0" %}
+{% set tests_to_skip = "_not_a_real_test" %}
+{% set version = "18.1.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "18" %}
@@ -10,7 +11,7 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: abcf1934cd0cdddd33664e9f2d9a251d6c55239d1122ad0ed223b13a583c82a9
+    sha256: 2dc8da5f8796afe213ecc5e5aba85bb82d91520eff3cf315784a52d0fa61d7fc
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 735ae7128d571398dd798d7ff004adebeb342883
@@ -20,14 +21,14 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 2
+  number: 0
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
 
 outputs:
   - name: pyarrow-core
-    script: build-pyarrow.sh   # [unix]
+    script: build-pyarrow.sh  # [unix]
     script: build-pyarrow.bat  # [win]
     version: {{ version }}
     build:
@@ -209,11 +210,11 @@ outputs:
       summary: Python libraries for Apache Arrow with all capabilities
 
   - name: pyarrow-tests
-    script: build-pyarrow.sh   # [unix]
+    script: build-pyarrow.sh  # [unix]
     script: build-pyarrow.bat  # [win]
     version: {{ version }}
     build:
-      skip: true               # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler_version != "None"]
     requirements:
       build:
         - {{ compiler("c") }}
