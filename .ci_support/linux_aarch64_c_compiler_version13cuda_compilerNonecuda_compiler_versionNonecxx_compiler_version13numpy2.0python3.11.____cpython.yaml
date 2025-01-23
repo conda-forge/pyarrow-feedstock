@@ -33,9 +33,11 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.11.* *_cpython
+python_min:
+- '3.9'
 target_platform:
-- linux-64
+- linux-aarch64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
