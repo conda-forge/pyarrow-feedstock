@@ -268,19 +268,19 @@ outputs:
         # test_cpp_extension_in_python requires a compiler
         - {{ compiler("cxx") }}  # [linux]
         - pytest
-        - boto3
+        - boto3         # [not is_freethreading]
         - cffi
         - cloudpickle
         - cython
-        - fastparquet
+        - fastparquet   # [not is_freethreading]
         - fsspec
         - hypothesis
         - minio-server
         - pandas
         - pytz
-        - s3fs >=2023
+        - s3fs >=2023   # [not is_freethreading]
         - scipy
-        - sparse
+        - sparse        # [not is_freethreading]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
