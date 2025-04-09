@@ -11,6 +11,10 @@ source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
     sha256: acb76266e8b0c2fbb7eb15d542fbb462a73b3fd1e32b80fad6c2fafd95a51160
+    patches:
+      # backport https://github.com/apache/arrow/pull/45226, necessary for test expectations
+      - patches/0001-GH-45225-C-Upgrade-ORC-to-2.1.0-45226.patch
+
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 735ae7128d571398dd798d7ff004adebeb342883
