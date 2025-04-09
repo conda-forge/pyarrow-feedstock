@@ -14,6 +14,8 @@ cuda_compiler_version_min:
 - '11.8'
 cxx_compiler:
 - vs2019
+is_freethreading:
+- 'false'
 libarrow_all:
 - '*'
 numpy:
@@ -31,5 +33,7 @@ zip_keys:
   - cuda_compiler_version
 - - python
   - numpy
+  - channel_sources
+  - is_freethreading
 zlib:
 - '1'
