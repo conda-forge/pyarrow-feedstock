@@ -252,17 +252,17 @@ outputs:
         - {{ compiler("cxx") }}  # [linux]
         - pytest
         - boto3
-        - cffi
+        - cffi          # [not is_freethreading]
         - cloudpickle
         - cython
-        - fastparquet
-        - fsspec
+        - fastparquet   # [not is_freethreading]
+        - fsspec        # [not is_freethreading]
         - hypothesis
         - minio-server
         - pandas
         - s3fs >=2023
         - scipy
-        - sparse
+        - sparse        # [not is_freethreading]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
