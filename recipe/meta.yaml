@@ -155,6 +155,10 @@ outputs:
     version: {{ version }}
     build:
       noarch: python
+      ignore_run_exports:
+        - python
+      ignore_run_exports_from:
+        - python
     requirements:
       host:
         - python {{ python_min }}
@@ -194,6 +198,10 @@ outputs:
     version: {{ version }}
     build:
       noarch: python
+      ignore_run_exports:
+        - python
+      ignore_run_exports_from:
+        - python
     requirements:
       host:
         - python {{ python_min }}
