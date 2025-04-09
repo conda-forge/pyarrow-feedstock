@@ -20,6 +20,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '18'
+is_freethreading:
+- 'false'
 libarrow_all:
 - '*'
 macos_machine:
@@ -40,5 +42,6 @@ zip_keys:
 - - python
   - numpy
   - channel_sources
+  - is_freethreading
 zlib:
 - '1'
