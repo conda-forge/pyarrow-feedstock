@@ -7,9 +7,9 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- nvcc
 cuda_compiler_version:
-- None
+- '11.8'
 cuda_compiler_version_min:
 - '11.8'
 cxx_compiler:
@@ -24,6 +24,8 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.11.* *_cpython
+python_min:
+- '3.9'
 target_platform:
 - win-64
 zip_keys:
