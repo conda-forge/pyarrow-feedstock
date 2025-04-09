@@ -5,7 +5,8 @@
 
 package:
   name: apache-arrow
-  version: {{ version }}
+  version: "20.0.0"
+  # version: {{ version }}
 
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
