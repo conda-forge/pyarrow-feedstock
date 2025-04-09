@@ -5,12 +5,17 @@
 
 package:
   name: apache-arrow
-  version: {{ version }}
+  version: "20.0.0"
+  # version: {{ version }}
 
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
     sha256: acb76266e8b0c2fbb7eb15d542fbb462a73b3fd1e32b80fad6c2fafd95a51160
+    patches:
+      # backport https://github.com/apache/arrow/pull/45226, necessary for test expectations
+      - patches/0001-GH-45225-C-Upgrade-ORC-to-2.1.0-45226.patch
+
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 735ae7128d571398dd798d7ff004adebeb342883
@@ -74,7 +79,7 @@ outputs:
       host:
         # We add all libarrow package dependencies on host in order
         # to build pyarrow once with all capabilities.
-        - libarrow-all {{ version }}.*=*{{ build_ext }}
+        - libarrow-all {{ version }}.* *{{ build_ext }}
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
@@ -87,13 +92,13 @@ outputs:
         # We ignore the run-exports from libarrow-all and restrict to only
         # libarrow, as we don't want the other libraries to be installed when
         # running for pyarrow-core, where the aim is a low storage footprint.
-        - libarrow {{ version }}.*=*{{ build_ext }}
+        - libarrow {{ version }}.* *{{ build_ext }}
         - python
         # this is redundant with libarrow, but we want smithy to pick up that
         # cuda_compiler_version_min is present, to populate the CI configs
         - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
-        - apache-arrow-proc =*={{ build_ext }}
+        - apache-arrow-proc * {{ build_ext }}
         # keep lower pin aligned with run_exports from numpy
         # https://github.com/conda-forge/numpy-feedstock/blob/main/recipe/meta.yaml
         - numpy >=1.21,<3
@@ -149,21 +154,27 @@ outputs:
 
   - name: pyarrow
     version: {{ version }}
+    build:
+      noarch: python
+      ignore_run_exports:
+        - python
+      ignore_run_exports_from:
+        - python
     requirements:
       host:
-        # only necessary for run-exports
-        - python
+        - python {{ python_min }}
       run:
         # do not use pin_compatible because pyarrow-core has CUDA/non-CUDA variants
-        - pyarrow-core {{ version }}=*_{{ PKG_BUILDNUM }}_*
+        - pyarrow-core {{ version }} *_{{ PKG_BUILDNUM }}_*
         # Default doesn't contain flight, flight-sql and gandiva
         - libarrow-acero {{ version }}.*
         - libarrow-dataset {{ version }}.*
         - libarrow-substrait {{ version }}.*
         - libparquet {{ version }}.*
-        - python
-
+        - python >={{ python_min }}
     test:
+      requires:
+        - python {{ python_min }}
       files:
         - test_read_parquet.py
       imports:
@@ -186,18 +197,24 @@ outputs:
 
   - name: pyarrow-all
     version: {{ version }}
+    build:
+      noarch: python
+      ignore_run_exports:
+        - python
+      ignore_run_exports_from:
+        - python
     requirements:
       host:
-        # only necessary for run-exports
-        - python
+        - python {{ python_min }}
       run:
-        - pyarrow {{ version }}=*_{{ PKG_BUILDNUM }}
+        - pyarrow {{ version }} *_{{ PKG_BUILDNUM }}
         - libarrow-flight {{ version }}.*
         - libarrow-flight-sql {{ version }}.*
         - libarrow-gandiva {{ version }}.*
-        - python
-
+        - python >={{ python_min }}
     test:
+      requires:
+        - python {{ python_min }}
       imports:
         - pyarrow.flight
         - pyarrow.gandiva
@@ -226,10 +243,10 @@ outputs:
         - cmake
         - ninja
       host:
-        - pyarrow-all {{ version }}=*_{{ PKG_BUILDNUM }}
+        - pyarrow-all {{ version }} *_{{ PKG_BUILDNUM }}
         - libarrow-all {{ version }}.*
         # only for helping resolver
-        - libarrow {{ version }}.*=*{{ build_ext }}
+        - libarrow {{ version }}.* *{{ build_ext }}
         - clangdev {{ llvm_version }}
         - llvmdev {{ llvm_version }}
         - zlib
@@ -239,7 +256,7 @@ outputs:
         - setuptools
         - setuptools-scm
       run:
-        - pyarrow-all {{ version }}=*_{{ PKG_BUILDNUM }}
+        - pyarrow-all {{ version }} *_{{ PKG_BUILDNUM }}
         - python
 
     test:
