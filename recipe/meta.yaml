@@ -251,7 +251,7 @@ outputs:
         # test_cpp_extension_in_python requires a compiler
         - {{ compiler("cxx") }}  # [linux]
         - pytest
-        - boto3
+        - boto3         # [not is_freethreading]
         - cffi          # [not is_freethreading]
         - cloudpickle
         - cython
@@ -260,7 +260,7 @@ outputs:
         - hypothesis
         - minio-server
         - pandas
-        - s3fs >=2023
+        - s3fs >=2023   # [not is_freethreading]
         - scipy
         - sparse        # [not is_freethreading]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
