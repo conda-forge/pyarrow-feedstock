@@ -89,6 +89,8 @@ outputs:
         # libarrow, as we don't want the other libraries to be installed when
         # running for pyarrow-core, where the aim is a low storage footprint.
         - libarrow {{ version }}.* *{{ build_ext }}
+        # compute is necessary even for a basic `import pyarrow`
+        - libarrow-compute {{ version }}.* *{{ build_ext }}
         - python
         # this is redundant with libarrow, but we want smithy to pick up that
         # cuda_compiler_version_min is present, to populate the CI configs
