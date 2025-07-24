@@ -1,4 +1,4 @@
-{% set version = "20.0.0" %}
+{% set version = "21.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "18" %}
@@ -10,7 +10,7 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: 89efbbf852f5a1f79e9c99ab4c217e2eb7f991837c005cba2d4a2fbd35fad212
+    sha256: 5d3f8db7e72fb9f65f4785b7a1634522e8d8e9657a445af53d4a34a3849857b5
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
@@ -89,6 +89,8 @@ outputs:
         # libarrow, as we don't want the other libraries to be installed when
         # running for pyarrow-core, where the aim is a low storage footprint.
         - libarrow {{ version }}.* *{{ build_ext }}
+        # compute is necessary even for a basic `import pyarrow`
+        - libarrow-compute {{ version }}.* *{{ build_ext }}
         - python
         # this is redundant with libarrow, but we want smithy to pick up that
         # cuda_compiler_version_min is present, to populate the CI configs
@@ -292,6 +294,8 @@ outputs:
         {% set tests_to_skip = tests_to_skip + " or test_debug_memory_pool_disabled" %}   # [aarch64 or ppc64le]
         {% set tests_to_skip = tests_to_skip + " or test_env_var_io_thread_count" %}      # [aarch64 or ppc64le]
         # vvvvvvv TESTS THAT SHOULDN'T HAVE TO BE SKIPPED vvvvvvv
+        # flaky test based on s3 connection
+        {% set tests_to_skip = tests_to_skip + " or test_s3_real_aws_region_selection" %}
         # https://github.com/apache/arrow/issues/45229
         {% set tests_to_skip = tests_to_skip + " or test_sparse_coo_tensor_scipy_roundtrip" %}
         # https://github.com/apache/arrow/issues/43800
