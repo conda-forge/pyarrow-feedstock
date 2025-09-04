@@ -29,5 +29,7 @@ target_platform:
 zip_keys:
 - - cuda_compiler_version
   - cuda_compiler
+- - python
+  - channel_sources
 zlib:
 - '1'
