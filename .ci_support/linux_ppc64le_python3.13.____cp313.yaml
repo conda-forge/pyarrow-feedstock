@@ -12,12 +12,8 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- cuda-nvcc
 cuda_compiler_version:
 - None
-cuda_compiler_version_min:
-- '11.8'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -39,8 +35,7 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
   - cuda_compiler_version
-  - cuda_compiler
-  - docker_image
 zlib:
 - '1'

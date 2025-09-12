@@ -8,26 +8,22 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_cuda_compiler_version11.8python3.10.____cpython:
-        CONFIG: linux_64_cuda_compiler_version11.8python3.10.____cpython
+      linux_64_cuda_compiler_version12.6python3.10.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_64_cuda_compiler_version11.8python3.11.____cpython:
-        CONFIG: linux_64_cuda_compiler_version11.8python3.11.____cpython
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_64_cuda_compiler_version12.6python3.11.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_64_cuda_compiler_version11.8python3.12.____cpython:
-        CONFIG: linux_64_cuda_compiler_version11.8python3.12.____cpython
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_64_cuda_compiler_version12.6python3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_64_cuda_compiler_version11.8python3.13.____cp313:
-        CONFIG: linux_64_cuda_compiler_version11.8python3.13.____cp313
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_64_cuda_compiler_version12.6python3.13.____cp313:
+        CONFIG: linux_64_cuda_compiler_version12.6python3.13.____cp313
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_64_cuda_compiler_version11.8python3.9.____cpython:
-        CONFIG: linux_64_cuda_compiler_version11.8python3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_64_cuda_compiler_versionNonepython3.10.____cpython:
         CONFIG: linux_64_cuda_compiler_versionNonepython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -44,30 +40,22 @@ jobs:
         CONFIG: linux_64_cuda_compiler_versionNonepython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_cuda_compiler_versionNonepython3.9.____cpython:
-        CONFIG: linux_64_cuda_compiler_versionNonepython3.9.____cpython
+      linux_aarch64_cuda_compiler_version12.6python3.10.____cpython:
+        CONFIG: linux_aarch64_cuda_compiler_version12.6python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cuda_compiler_version11.8python3.10.____cpython:
-        CONFIG: linux_aarch64_cuda_compiler_version11.8python3.10.____cpython
+      linux_aarch64_cuda_compiler_version12.6python3.11.____cpython:
+        CONFIG: linux_aarch64_cuda_compiler_version12.6python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_aarch64_cuda_compiler_version11.8python3.11.____cpython:
-        CONFIG: linux_aarch64_cuda_compiler_version11.8python3.11.____cpython
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_aarch64_cuda_compiler_version12.6python3.12.____cpython:
+        CONFIG: linux_aarch64_cuda_compiler_version12.6python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_aarch64_cuda_compiler_version11.8python3.12.____cpython:
-        CONFIG: linux_aarch64_cuda_compiler_version11.8python3.12.____cpython
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_aarch64_cuda_compiler_version12.6python3.13.____cp313:
+        CONFIG: linux_aarch64_cuda_compiler_version12.6python3.13.____cp313
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_aarch64_cuda_compiler_version11.8python3.13.____cp313:
-        CONFIG: linux_aarch64_cuda_compiler_version11.8python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_aarch64_cuda_compiler_version11.8python3.9.____cpython:
-        CONFIG: linux_aarch64_cuda_compiler_version11.8python3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_aarch64_cuda_compiler_versionNonepython3.10.____cpython:
         CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -84,48 +72,20 @@ jobs:
         CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cuda_compiler_versionNonepython3.9.____cpython:
-        CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.9.____cpython
+      linux_ppc64le_python3.10.____cpython:
+        CONFIG: linux_ppc64le_python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cuda_compiler_version11.8python3.10.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_version11.8python3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_ppc64le_cuda_compiler_version11.8python3.11.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_version11.8python3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_ppc64le_cuda_compiler_version11.8python3.12.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_version11.8python3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_ppc64le_cuda_compiler_version11.8python3.13.____cp313:
-        CONFIG: linux_ppc64le_cuda_compiler_version11.8python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_ppc64le_cuda_compiler_version11.8python3.9.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_version11.8python3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_ppc64le_cuda_compiler_versionNonepython3.10.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_versionNonepython3.10.____cpython
+      linux_ppc64le_python3.11.____cpython:
+        CONFIG: linux_ppc64le_python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cuda_compiler_versionNonepython3.11.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_versionNonepython3.11.____cpython
+      linux_ppc64le_python3.12.____cpython:
+        CONFIG: linux_ppc64le_python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cuda_compiler_versionNonepython3.12.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_versionNonepython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cuda_compiler_versionNonepython3.13.____cp313:
-        CONFIG: linux_ppc64le_cuda_compiler_versionNonepython3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cuda_compiler_versionNonepython3.9.____cpython:
-        CONFIG: linux_ppc64le_cuda_compiler_versionNonepython3.9.____cpython
+      linux_ppc64le_python3.13.____cp313:
+        CONFIG: linux_ppc64le_python3.13.____cp313
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
   timeoutInMinutes: 360
@@ -154,10 +114,17 @@ jobs:
          df -h
     displayName: Manage disk space
   - script: |
-         sudo fallocate -l 8GiB /swapfile || true
-         sudo chmod 600 /swapfile || true
-         sudo mkswap /swapfile || true
-         sudo swapon /swapfile || true
+        SWAPFILE=/swapfile
+        # If there is already a swapfile, disable it and remove it
+        if swapon --show | grep -q $SWAPFILE; then
+            echo "Disabling existing swapfile..."
+            sudo swapoff $SWAPFILE || true
+        fi
+        [ -f "$SWAPFILE" ] && sudo rm -f $SWAPFILE
+        sudo fallocate -l 8GiB $SWAPFILE
+        sudo chmod 600 $SWAPFILE
+        sudo mkswap $SWAPFILE
+        sudo swapon $SWAPFILE
     displayName: Create swap file
   # configure qemu binfmt-misc running.  This allows us to run docker containers
   # embedded qemu-static
