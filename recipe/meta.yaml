@@ -256,7 +256,7 @@ outputs:
         - cffi
         - cloudpickle
         - cython
-        - fastparquet   # [py<314]
+        - fastparquet
         - fsspec
         - hypothesis
         - minio-server
