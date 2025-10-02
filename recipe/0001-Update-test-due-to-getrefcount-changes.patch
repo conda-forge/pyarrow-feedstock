@@ -1,0 +1,28 @@
+From 5037c91a86de4c64802a075921ae47950da89244 Mon Sep 17 00:00:00 2001
+From: AlenkaF <frim.alenka@gmail.com>
+Date: Tue, 23 Sep 2025 10:09:10 +0200
+Subject: [PATCH] Update test due to getrefcount changes
+
+---
+ python/pyarrow/tests/test_array.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/python/pyarrow/tests/test_array.py b/python/pyarrow/tests/test_array.py
+index 009ab1e..ec36115 100644
+--- a/python/pyarrow/tests/test_array.py
++++ b/python/pyarrow/tests/test_array.py
+@@ -292,10 +292,12 @@ def test_to_pandas_zero_copy():
+ 
+     for i in range(10):
+         series = arr.to_pandas()
+-        assert sys.getrefcount(series) == 2
++        # In Python 3.14 interpreter might avoid some
++        # reference count modifications
++        assert sys.getrefcount(series) in (1, 2)
+         series = None  # noqa
+ 
+-    assert sys.getrefcount(arr) == 2
++    assert sys.getrefcount(arr) in (1, 2)
+ 
+     for i in range(10):
+         arr = pa.array(range(10))

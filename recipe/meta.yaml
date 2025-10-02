@@ -11,6 +11,8 @@ source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
     sha256: 5d3f8db7e72fb9f65f4785b7a1634522e8d8e9657a445af53d4a34a3849857b5
+    patches:
+      - 0001-Update-test-due-to-getrefcount-changes.patch
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
@@ -21,7 +23,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 0
+  number: 1
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -261,7 +263,7 @@ outputs:
         - pandas
         - s3fs >=2023
         - scipy
-        - sparse
+        - sparse        # [py<314]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
