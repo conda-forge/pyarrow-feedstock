@@ -293,6 +293,9 @@ outputs:
         # vvvvvvv TESTS THAT SHOULDN'T HAVE TO BE SKIPPED vvvvvvv
         # https://github.com/apache/arrow/issues/45229
         {% set tests_to_skip = tests_to_skip + " or test_sparse_coo_tensor_scipy_roundtrip" %}
+        # this test is trying to simulate a failure mode using /usr/share/zoneinfo,
+        # but newer orc will ignore that if it finds a tzinfo in a conda environment
+        {% set tests_to_skip = tests_to_skip + " or test_timezone_absent" %}
         # https://github.com/apache/arrow/issues/43800
         {% set tests_to_skip = tests_to_skip + " or test_cpp_extension_in_python" %}                # [osx]
         # https://github.com/apache/arrow/issues/43356
