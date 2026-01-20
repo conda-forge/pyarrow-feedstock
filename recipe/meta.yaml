@@ -12,7 +12,12 @@ source:
     fn: apache-arrow-{{ version }}.tar.gz
     sha256: 5d3f8db7e72fb9f65f4785b7a1634522e8d8e9657a445af53d4a34a3849857b5
     patches:
-      - 0001-Update-test-due-to-getrefcount-changes.patch
+      # partial backport of https://github.com/apache/arrow/pull/47616
+      - patches/0001-Update-test-due-to-getrefcount-changes.patch
+      # backport https://github.com/apache/arrow/pull/48261
+      - patches/0002-GH-48260-C-Python-R-Move-S3-bucket-references-to-new.patch
+      # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
+      - patches/0003-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
@@ -23,7 +28,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 1
+  number: 2
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -300,6 +305,9 @@ outputs:
         {% set tests_to_skip = tests_to_skip + " or test_s3_real_aws_region_selection" %}
         # https://github.com/apache/arrow/issues/45229
         {% set tests_to_skip = tests_to_skip + " or test_sparse_coo_tensor_scipy_roundtrip" %}
+        # this test is trying to simulate a failure mode using /usr/share/zoneinfo,
+        # but newer orc will ignore that if it finds a tzinfo in a conda environment
+        {% set tests_to_skip = tests_to_skip + " or test_timezone_absent" %}
         # https://github.com/apache/arrow/issues/43800
         {% set tests_to_skip = tests_to_skip + " or test_cpp_extension_in_python" %}                # [osx]
         # https://github.com/apache/arrow/issues/43356
