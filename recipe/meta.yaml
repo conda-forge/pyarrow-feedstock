@@ -12,7 +12,10 @@ source:
     fn: apache-arrow-{{ version }}.tar.gz
     sha256: 5d3f8db7e72fb9f65f4785b7a1634522e8d8e9657a445af53d4a34a3849857b5
     patches:
-      - 0001-Update-test-due-to-getrefcount-changes.patch
+      # partial backport of https://github.com/apache/arrow/pull/47616
+      - patches/0001-Update-test-due-to-getrefcount-changes.patch
+      # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
+      - patches/0002-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
