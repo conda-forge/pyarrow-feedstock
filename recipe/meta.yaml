@@ -14,7 +14,8 @@ source:
     patches:
       # backport https://github.com/apache/arrow/pull/48261
       - patches/0001-GH-48260-C-Python-R-Move-S3-bucket-references-to-new.patch
-  # testing-submodule not part of release tarball
+      # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
+      - patches/0002-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 735ae7128d571398dd798d7ff004adebeb342883
     folder: testing
