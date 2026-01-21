@@ -11,6 +11,11 @@ source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
     sha256: 131250cd24dec0cddde04e2ad8c9e2bc43edc5e84203a81cf71cf1a33a6e7e0f
+    patches:
+      # backport https://github.com/apache/arrow/pull/48261
+      - patches/0001-GH-48260-C-Python-R-Move-S3-bucket-references-to-new.patch
+      # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
+      - patches/0002-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
@@ -21,7 +26,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 0
+  number: 1
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
