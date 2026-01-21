@@ -250,7 +250,7 @@ outputs:
       requires:
         # test_cpp_extension_in_python requires a compiler
         - {{ compiler("cxx") }}  # [linux]
-        - pytest
+        - pytest <9
         - boto3
         - cffi
         - cloudpickle
