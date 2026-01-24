@@ -263,7 +263,7 @@ outputs:
         - fsspec
         - hypothesis
         - minio-server
-        - pandas
+        - pandas <3
         - s3fs >=2023
         - scipy
         - sparse        # [py<314]
