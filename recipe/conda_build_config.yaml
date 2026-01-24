@@ -1,8 +1,8 @@
 # on osx, keep this in sync with llvm_version in meta.yaml.
 c_compiler_version:            # [osx]
-  - 18                         # [osx]
+  - 21                         # [osx]
 cxx_compiler_version:          # [osx]
-  - 18                         # [osx]
+  - 21                         # [osx]
 
 # avoid smithy blowing up CI jobs due to multiple verions in global pinning
 libarrow:
