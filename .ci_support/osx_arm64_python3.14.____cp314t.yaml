@@ -1,23 +1,31 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+MACOSX_SDK_VERSION:
+- '11.0'
 c_compiler:
-- vs2022
+- clang
+c_compiler_version:
+- '21'
 c_stdlib:
-- vs
+- macosx_deployment_target
+c_stdlib_version:
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- cuda-nvcc
 cuda_compiler_version:
 - None
-cuda_compiler_version_min:
-- '11.8'
 cxx_compiler:
-- vs2022
+- clangxx
+cxx_compiler_version:
+- '21'
 is_freethreading:
-- false
+- true
 libarrow_all:
 - '*'
+macos_machine:
+- arm64-apple-darwin20.0.0
 numpy:
 - '2'
 pin_run_as_build:
@@ -25,12 +33,12 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.14.* *_cp314t
 target_platform:
-- win-64
+- osx-arm64
 zip_keys:
-- - cuda_compiler_version
-  - cuda_compiler
+- - c_compiler_version
+  - cxx_compiler_version
 - - python
   - is_freethreading
 zlib:

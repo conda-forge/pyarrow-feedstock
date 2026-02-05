@@ -1,7 +1,11 @@
 c_compiler:
-- vs2022
+- gcc
+c_compiler_version:
+- '14'
 c_stdlib:
-- vs
+- sysroot
+c_stdlib_version:
+- '2.17'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -13,9 +17,13 @@ cuda_compiler_version:
 cuda_compiler_version_min:
 - '11.8'
 cxx_compiler:
-- vs2022
+- gxx
+cxx_compiler_version:
+- '14'
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 is_freethreading:
-- false
+- true
 libarrow_all:
 - '*'
 numpy:
@@ -25,12 +33,16 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.14.* *_cp314t
 target_platform:
-- win-64
+- linux-ppc64le
 zip_keys:
-- - cuda_compiler_version
+- - c_compiler_version
+  - cxx_compiler_version
+  - c_stdlib_version
+  - cuda_compiler_version
   - cuda_compiler
+  - docker_image
 - - python
   - is_freethreading
 zlib:

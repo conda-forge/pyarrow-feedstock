@@ -20,6 +20,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '21'
+is_freethreading:
+- false
 libarrow_all:
 - '*'
 macos_machine:
@@ -37,5 +39,7 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+- - python
+  - is_freethreading
 zlib:
 - '1'
