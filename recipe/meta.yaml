@@ -259,7 +259,7 @@ outputs:
         - cffi
         - cloudpickle
         - cython
-        - fastparquet
+        - fastparquet   # [not is_freethreading]
         - fsspec        # [not is_freethreading]
         - hypothesis
         - minio-server
