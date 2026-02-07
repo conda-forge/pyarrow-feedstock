@@ -109,6 +109,8 @@ outputs:
         - numpy >=1.23,<3
 
     test:
+      requires:
+        - cuda-driver-dev   # [cuda_compiler_version != "None" and linux]
       imports:
         - pyarrow
         # Compute can be imported but the underlying libarrow_acero is not present.
@@ -121,12 +123,6 @@ outputs:
         - pyarrow._gcsfs
         - pyarrow._hdfs
         - pyarrow._s3fs
-        # We can only test importing cuda package but cannot run when a
-        # CUDA device is not available, for instance, when building from CI.
-        # On Windows, we cannot even do that due to `nvcuda.dll` not being found, see
-        # https://conda-forge.org/docs/maintainer/knowledge_base.html#nvcuda-dll-cannot-be-found-on-windows
-        # However, we check below for (at least) the presence of a correctly-compiled module
-        - pyarrow.cuda     # [cuda_compiler_version != "None" and not win]
       commands:
         # libraries that depend on python (and hence aren't in libarrow itself)
         - test -f ${SP_DIR}/pyarrow/libarrow_python.so                              # [linux]
@@ -153,6 +149,12 @@ outputs:
         - test ! -f $PREFIX/lib/libarrow_flight${SHLIB_EXT}     # [unix]
         - test ! -f $PREFIX/lib/libgandiva${SHLIB_EXT}          # [unix]
         - test ! -f $PREFIX/lib/libparquet${SHLIB_EXT}          # [unix]
+
+        # we cannot do imports for CUDA builds directly because the library
+        # tries loading the driver library that conda-forge cannot ship;
+        # we trick the package with LD_PRELOAD to pass the import tests
+        - export LD_PRELOAD="$PREFIX/lib/stubs/libcuda.so"      # [cuda_compiler_version != "None" and linux]
+        - python -c "import pyarrow.cuda"                       # [cuda_compiler_version != "None" and linux]
 
     about:
       home: http://github.com/apache/arrow
