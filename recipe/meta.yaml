@@ -117,6 +117,7 @@ outputs:
         - pyarrow.json
         - pyarrow.fs
         - pyarrow.orc
+        - pyarrow._azurefs
         - pyarrow._gcsfs
         - pyarrow._hdfs
         - pyarrow._s3fs
