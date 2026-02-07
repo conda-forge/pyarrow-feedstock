@@ -17,6 +17,8 @@ source:
     patches:
       # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
       - patches/0001-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
+      # backport https://github.com/apache/arrow/pull/48979
+      - patches/0002-GH-48978-Python-test-failures-on-pandas-3.0.patch
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
