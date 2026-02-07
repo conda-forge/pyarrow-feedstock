@@ -10,12 +10,10 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- cuda-nvcc
 cuda_compiler_version:
 - None
 cuda_compiler_version_min:
-- '11.8'
+- None
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -31,7 +29,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.13.* *_cp313
+- 3.12.* *_cpython
 target_platform:
 - linux-ppc64le
 zip_keys:
@@ -39,7 +37,5 @@ zip_keys:
   - cxx_compiler_version
   - c_stdlib_version
   - cuda_compiler_version
-  - cuda_compiler
-  - docker_image
 zlib:
 - '1'

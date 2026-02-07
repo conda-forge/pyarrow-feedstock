@@ -26,8 +26,7 @@ BUILD_EXT_FLAGS=""
 if [[ ! -z "${cuda_compiler_version+x}" && "${cuda_compiler_version}" != "None" ]]; then
     export PYARROW_WITH_CUDA=1
     if [[ "${build_platform}" != "${target_platform}" ]]; then
-        export CUDAToolkit_ROOT=${CUDA_HOME}
-        export CMAKE_LIBRARY_PATH=${CONDA_BUILD_SYSROOT}/lib
+        export CUDA_TOOLKIT_ROOT_DIR="${PREFIX}"
     fi
 else
     export PYARROW_WITH_CUDA=0
