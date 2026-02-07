@@ -3,6 +3,9 @@
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "21" %}
 
+# fake selector to ensure variable appears as used, so skip below can work
+# [cuda_compiler_version_min]
+
 package:
   name: apache-arrow
   version: {{ version }}
@@ -95,9 +98,6 @@ outputs:
         # compute is necessary even for a basic `import pyarrow`
         - libarrow-compute {{ version }}.* *{{ build_ext }}
         - python
-        # this is redundant with libarrow, but we want smithy to pick up that
-        # cuda_compiler_version_min is present, to populate the CI configs
-        - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc * {{ build_ext }}
         # in place of the ignored run-export, keep lower pin aligned with run_exports from numpy
