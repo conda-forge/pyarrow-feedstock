@@ -260,7 +260,7 @@ outputs:
         - cloudpickle
         - cython
         - fastparquet   # [not is_freethreading]
-        - fsspec        # [not is_freethreading]
+        - fsspec
         - hypothesis
         - minio-server
         - pandas
