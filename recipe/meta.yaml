@@ -272,6 +272,7 @@ outputs:
         - hypothesis
         - minio-server
         - pandas
+        - pytz
         - s3fs >=2023
         - scipy
         - sparse
