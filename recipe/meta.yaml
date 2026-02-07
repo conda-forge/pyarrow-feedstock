@@ -204,12 +204,14 @@ outputs:
         - libarrow-flight {{ version }}.*
         - libarrow-flight-sql {{ version }}.*
         - libarrow-gandiva {{ version }}.*
+        - libarrow-substrait {{ version }}.*
         - python
 
     test:
       imports:
         - pyarrow.flight
         - pyarrow.gandiva
+        - pyarrow.substrait
     about:
       home: http://github.com/apache/arrow
       license: Apache-2.0
