@@ -109,10 +109,13 @@ outputs:
         - pyarrow
         # Compute can be imported but the underlying libarrow_acero is not present.
         - pyarrow.compute
-        - pyarrow.orc
+        - pyarrow.csv
+        - pyarrow.json
         - pyarrow.fs
-        - pyarrow._s3fs
+        - pyarrow.orc
+        - pyarrow._gcsfs
         - pyarrow._hdfs
+        - pyarrow._s3fs
         # We can only test importing cuda package but cannot run when a
         # CUDA device is not available, for instance, when building from CI.
         # On Windows, we cannot even do that due to `nvcuda.dll` not being found, see
