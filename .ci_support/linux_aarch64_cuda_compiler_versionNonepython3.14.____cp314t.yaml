@@ -23,7 +23,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 is_freethreading:
-- false
+- true
 libarrow_all:
 - '*'
 numpy:
@@ -33,7 +33,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.14.* *_cp314t
 target_platform:
 - linux-aarch64
 zip_keys:
