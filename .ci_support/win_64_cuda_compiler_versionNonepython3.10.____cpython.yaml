@@ -11,9 +11,11 @@ cuda_compiler:
 cuda_compiler_version:
 - None
 cuda_compiler_version_min:
-- '11.8'
+- '12.9'
 cxx_compiler:
 - vs2022
+is_freethreading:
+- false
 libarrow_all:
 - '*'
 numpy:
@@ -27,7 +29,7 @@ python:
 target_platform:
 - win-64
 zip_keys:
-- - cuda_compiler_version
-  - cuda_compiler
+- - python
+  - is_freethreading
 zlib:
 - '1'

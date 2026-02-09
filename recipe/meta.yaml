@@ -3,6 +3,9 @@
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "21" %}
 
+# fake selector to ensure variable appears as used, so skip below can work
+# [cuda_compiler_version_min]
+
 package:
   name: apache-arrow
   version: {{ version }}
@@ -14,6 +17,8 @@ source:
     patches:
       # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
       - patches/0001-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
+      # backport https://github.com/apache/arrow/pull/48979
+      - patches/0002-GH-48978-Python-test-failures-on-pandas-3.0.patch
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
@@ -95,30 +100,32 @@ outputs:
         # compute is necessary even for a basic `import pyarrow`
         - libarrow-compute {{ version }}.* *{{ build_ext }}
         - python
-        # this is redundant with libarrow, but we want smithy to pick up that
-        # cuda_compiler_version_min is present, to populate the CI configs
-        - __cuda >={{ cuda_compiler_version_min }}  # [cuda_compiler_version != "None"]
       run_constrained:
         - apache-arrow-proc * {{ build_ext }}
-        # keep lower pin aligned with run_exports from numpy
-        # https://github.com/conda-forge/numpy-feedstock/blob/main/recipe/meta.yaml
-        - numpy >=1.21,<3
+        # in place of the ignored run-export, keep lower pin aligned with run_exports from numpy
+        # https://github.com/conda-forge/numpy-feedstock/blob/main/recipe/recipe.yaml
+        - numpy >=1.23,<3
+        # we need to enforce the solver to choose a libarrow that has
+        # https://github.com/conda-forge/arrow-cpp-feedstock/pull/1919
+        # since prior builds had no azure constraints, it needs to be
+        # attached to another package; can be dropped for pyarrow v24
+        - libprotobuf >=6.33.5  # [win]
 
     test:
+      requires:
+        - cuda-driver-dev   # [cuda_compiler_version != "None" and linux]
       imports:
         - pyarrow
         # Compute can be imported but the underlying libarrow_acero is not present.
         - pyarrow.compute
-        - pyarrow.orc
+        - pyarrow.csv
+        - pyarrow.json
         - pyarrow.fs
-        - pyarrow._s3fs
+        - pyarrow.orc
+        - pyarrow._azurefs
+        - pyarrow._gcsfs
         - pyarrow._hdfs
-        # We can only test importing cuda package but cannot run when a
-        # CUDA device is not available, for instance, when building from CI.
-        # On Windows, we cannot even do that due to `nvcuda.dll` not being found, see
-        # https://conda-forge.org/docs/maintainer/knowledge_base.html#nvcuda-dll-cannot-be-found-on-windows
-        # However, we check below for (at least) the presence of a correctly-compiled module
-        - pyarrow.cuda     # [cuda_compiler_version != "None" and not win]
+        - pyarrow._s3fs
       commands:
         # libraries that depend on python (and hence aren't in libarrow itself)
         - test -f ${SP_DIR}/pyarrow/libarrow_python.so                              # [linux]
@@ -137,7 +144,7 @@ outputs:
         - test ! -f ${SP_DIR}/pyarrow/tests/test_array.py                           # [unix]
         - if exist %SP_DIR%/pyarrow/tests/test_array.py exit 1                      # [win]
         # Need to remove dot from PY_VER; %MYVAR:x=y% replaces "x" in %MYVAR% with "y"
-        - if not exist %SP_DIR%/pyarrow/_cuda.cp%PY_VER:.=%-win_amd64.pyd exit 1  # [win and cuda_compiler_version != "None"]
+        - if not exist %SP_DIR%/pyarrow/_cuda.cp%PY_VER:.=%-win_amd64.pyd exit 1    # [win and cuda_compiler_version != "None" and not is_freethreading]
 
         # Expected not included libraries
         - test ! -f $PREFIX/lib/libarrow_acero${SHLIB_EXT}      # [unix]
@@ -145,6 +152,12 @@ outputs:
         - test ! -f $PREFIX/lib/libarrow_flight${SHLIB_EXT}     # [unix]
         - test ! -f $PREFIX/lib/libgandiva${SHLIB_EXT}          # [unix]
         - test ! -f $PREFIX/lib/libparquet${SHLIB_EXT}          # [unix]
+
+        # we cannot do imports for CUDA builds directly because the library
+        # tries loading the driver library that conda-forge cannot ship;
+        # we trick the package with LD_PRELOAD to pass the import tests
+        - export LD_PRELOAD="$PREFIX/lib/stubs/libcuda.so"      # [cuda_compiler_version != "None" and linux]
+        - python -c "import pyarrow.cuda"                       # [cuda_compiler_version != "None" and linux]
 
     about:
       home: http://github.com/apache/arrow
@@ -201,12 +214,14 @@ outputs:
         - libarrow-flight {{ version }}.*
         - libarrow-flight-sql {{ version }}.*
         - libarrow-gandiva {{ version }}.*
+        - libarrow-substrait {{ version }}.*
         - python
 
     test:
       imports:
         - pyarrow.flight
         - pyarrow.gandiva
+        - pyarrow.substrait
     about:
       home: http://github.com/apache/arrow
       license: Apache-2.0
@@ -253,18 +268,19 @@ outputs:
         # test_cpp_extension_in_python requires a compiler
         - {{ compiler("cxx") }}  # [linux]
         - pytest
-        - boto3
+        - boto3         # [not is_freethreading]
         - cffi
         - cloudpickle
         - cython
-        - fastparquet
+        - fastparquet   # [not is_freethreading]
         - fsspec
         - hypothesis
         - minio-server
-        - pandas <3
-        - s3fs >=2023
+        - pandas
+        - pytz
+        - s3fs >=2023   # [not is_freethreading]
         - scipy
-        - sparse        # [py<314]
+        - sparse        # [not is_freethreading]
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch

@@ -1,7 +1,8 @@
 From a49a8f1dec6e3e102865aff729ba95011a788f3e Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Fri, 16 Jan 2026 12:53:03 +1100
-Subject: [PATCH] don't set TZDIR for tests; orc finds tzdata in conda prefix
+Subject: [PATCH 1/2] don't set TZDIR for tests; orc finds tzdata in conda
+ prefix
 
 ---
  python/pyarrow/tests/conftest.py | 16 ----------------
