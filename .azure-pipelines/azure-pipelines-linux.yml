@@ -128,6 +128,7 @@ jobs:
         CONFIG: linux_ppc64le_python3.14.____cp314t
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+    maxParallel: 28
   timeoutInMinutes: 360
   variables: {}
 
