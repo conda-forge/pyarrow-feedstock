@@ -1,4 +1,4 @@
-{% set version = "23.0.1" %}
+{% set version = "24.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "21" %}
@@ -13,7 +13,7 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: bd09adb4feac11fe49d1604f296618866702be610c86e2d513b561d877de6b18
+    sha256: 9a8094d24fa33b90c672ab77fdda253f29300c8b0dd3f0b8e55a29dbd98b82c9
     patches:
       # avoid setting TZDIR (incorrectly) for orc, which already handles cf's tzdata natively
       - patches/0001-don-t-set-TZDIR-for-tests-orc-finds-tzdata-in-conda-.patch
