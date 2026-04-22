@@ -5,7 +5,6 @@ set -ex
 export ARROW_HOME=$PREFIX
 export PARQUET_HOME=$PREFIX
 export SETUPTOOLS_SCM_PRETEND_VERSION=$PKG_VERSION
-export PYARROW_BUILD_TYPE=release
 export PYARROW_WITH_ACERO=1
 export PYARROW_WITH_AZURE=1
 export PYARROW_WITH_DATASET=1
@@ -18,8 +17,7 @@ export PYARROW_WITH_PARQUET=1
 export PYARROW_WITH_PARQUET_ENCRYPTION=1
 export PYARROW_WITH_S3=1
 export PYARROW_WITH_SUBSTRAIT=1
-export PYARROW_CMAKE_GENERATOR=Ninja
-export PYARROW_CMAKE_OPTIONS="-DARROW_SIMD_LEVEL=NONE"
+export CMAKE_GENERATOR=Ninja
 BUILD_EXT_FLAGS=""
 
 # Enable CUDA support
@@ -49,7 +47,11 @@ fi
 
 cd python
 
-python -m pip install . -vv
+python -m pip install . -vv \
+    -C build.verbose=true \
+    -C cmake.build-type=release \
+    -C cmake.args="-DARROW_SIMD_LEVEL=NONE" \
+    -C cmake.args=${PYARROW_CMAKE_OPTIONS}
 
 if [[ "$PKG_NAME" != "pyarrow-tests" ]]; then
     if [[ "$is_freethreading" == "true" ]]; then
