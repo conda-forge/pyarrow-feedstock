@@ -49,10 +49,7 @@ fi
 
 cd python
 
-$PYTHON setup.py \
-        build_ext \
-        install --single-version-externally-managed \
-                --record=record.txt
+python -m pip install . -vv
 
 if [[ "$PKG_NAME" != "pyarrow-tests" ]]; then
     if [[ "$is_freethreading" == "true" ]]; then

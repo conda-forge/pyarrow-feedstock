@@ -26,10 +26,7 @@ if "%cuda_compiler_version%"=="None" (
     set "PYARROW_WITH_CUDA=1"
 )
 
-%PYTHON%   setup.py ^
-           build_ext ^
-           install --single-version-externally-managed ^
-                   --record=record.txt
+python -m pip install . -vv
 if %ERRORLEVEL% neq 0 exit 1
 popd
 
