@@ -88,7 +88,6 @@ outputs:
         - python
         - pip
         - scikit-build-core
-        - setuptools
         - setuptools-scm
       run:
         # We ignore the run-exports from libarrow-all and restrict to only
@@ -255,7 +254,8 @@ outputs:
         - cython
         - numpy
         - python
-        - setuptools
+        - pip
+        - scikit-build-core
         - setuptools-scm
       run:
         - pyarrow-all {{ version }} *_{{ PKG_BUILDNUM }}
