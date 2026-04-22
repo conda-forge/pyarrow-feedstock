@@ -83,9 +83,11 @@ outputs:
         - llvmdev {{ llvm_version }}
         - zlib
         - cython
+        - libcst
         - numpy
         - python
         - pip
+        - scikit-build-core
         - setuptools
         - setuptools-scm
       run:
