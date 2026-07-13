@@ -17,7 +17,10 @@ cxx_compiler:
 is_freethreading:
 - true
 libarrow_all:
-- '*'
+- '22.0'
+- '23.0'
+- '24.0'
+- '25.0'
 numpy:
 - '2'
 pin_run_as_build:

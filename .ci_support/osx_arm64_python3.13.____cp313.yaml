@@ -25,7 +25,10 @@ cxx_compiler_version:
 is_freethreading:
 - false
 libarrow_all:
-- '*'
+- '22.0'
+- '23.0'
+- '24.0'
+- '25.0'
 macos_machine:
 - arm64-apple-darwin20.0.0
 numpy:
