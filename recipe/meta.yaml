@@ -271,7 +271,6 @@ outputs:
         - cffi
         - cloudpickle
         - cython
-        - fastparquet
         - fsspec
         - hypothesis
         - minio-server
