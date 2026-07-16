@@ -30,11 +30,6 @@ else
     export PYARROW_WITH_CUDA=0
 fi
 
-# Resolve: Make Error at cmake_modules/SetupCxxFlags.cmake:338 (message): Unsupported arch flag: -march=.
-if [[ "${target_platform}" == "linux-aarch64" ]]; then
-    export PYARROW_CMAKE_OPTIONS="-DARROW_ARMV8_ARCH=armv8-a ${PYARROW_CMAKE_OPTIONS}"
-fi
-
 if [[ "${target_platform}" == osx-* ]]; then
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
@@ -50,8 +45,7 @@ cd python
 python -m pip install . -vv \
     -C build.verbose=true \
     -C cmake.build-type=release \
-    -C cmake.args="-DARROW_SIMD_LEVEL=NONE" \
-    -C cmake.args=${PYARROW_CMAKE_OPTIONS}
+    -C cmake.args="-DARROW_SIMD_LEVEL=NONE"
 
 if [[ "$PKG_NAME" != "pyarrow-tests" ]]; then
     if [[ "$is_freethreading" == "true" ]]; then
