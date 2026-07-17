@@ -1,4 +1,5 @@
-{% set version = "24.0.0" %}
+{% set tests_to_skip = "_not_a_real_test" %}
+{% set version = "25.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "21" %}
@@ -13,7 +14,7 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: 9a8094d24fa33b90c672ab77fdda253f29300c8b0dd3f0b8e55a29dbd98b82c9
+    sha256: 12afc2dc8137bdd4a68876cec939f664c9d55cfc7b75f55b45163ebb4e344d81
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
@@ -28,10 +29,12 @@ build:
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
+  # something with scikit-build-core; it's ultra-niche, any effort is hard to justify; file a PR to fix if you care
+  skip: true  # [ppc64le and is_freethreading]
 
 outputs:
   - name: pyarrow-core
-    script: build-pyarrow.sh   # [unix]
+    script: build-pyarrow.sh  # [unix]
     script: build-pyarrow.bat  # [win]
     version: {{ version }}
     build:
@@ -227,11 +230,11 @@ outputs:
       summary: Python libraries for Apache Arrow with all capabilities
 
   - name: pyarrow-tests
-    script: build-pyarrow.sh   # [unix]
+    script: build-pyarrow.sh  # [unix]
     script: build-pyarrow.bat  # [win]
     version: {{ version }}
     build:
-      skip: true               # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler_version != "None"]
     requirements:
       build:
         - {{ compiler("c") }}
@@ -266,19 +269,19 @@ outputs:
         # test_cpp_extension_in_python requires a compiler
         - {{ compiler("cxx") }}  # [linux]
         - pytest
-        - boto3         # [not is_freethreading]
+        - boto3
         - cffi
         - cloudpickle
         - cython
-        - fastparquet   # [not is_freethreading]
         - fsspec
         - hypothesis
         - minio-server
         - pandas
         - pytz
-        - s3fs >=2023   # [not is_freethreading]
+        - s3fs >=2023
         - scipy
-        - sparse        # [not is_freethreading]
+        - setuptools
+        - sparse
         # these are generally (far) behind on migrating abseil/grpc/protobuf,
         # and using them as test dependencies blocks the migrator unnecessarily
         # - pytorch
