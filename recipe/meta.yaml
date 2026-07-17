@@ -29,6 +29,8 @@ build:
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
+  # something with scikit-build-core; it's ultra-niche, any effort is hard to justify; file a PR to fix if you care
+  skip: true  # [ppc64le and is_freethreading]
 
 outputs:
   - name: pyarrow-core
