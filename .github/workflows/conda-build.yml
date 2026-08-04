@@ -22,9 +22,10 @@ jobs:
       max-parallel: 50
       matrix:
         include:
-          - CONFIG: linux_64_cuda_compiler_version12.9python3.10.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_version12.9is_freethreadingfalsepython3.10.____cpython
+            CONFIG_SHORT: linux_64_cuda_compiler_version12.9is_fre_h4805d842
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -34,9 +35,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_version12.9python3.11.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_version12.9is_freethreadingfalsepython3.11.____cpython
+            CONFIG_SHORT: linux_64_cuda_compiler_version12.9is_fre_hf2a6487f
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -46,9 +48,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_version12.9python3.12.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_version12.9is_freethreadingfalsepython3.12.____cpython
+            CONFIG_SHORT: linux_64_cuda_compiler_version12.9is_fre_h8c550311
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -58,9 +61,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_version12.9python3.13.____cp313
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_version12.9is_freethreadingfalsepython3.13.____cp313
+            CONFIG_SHORT: linux_64_cuda_compiler_version12.9is_fre_he835d8b4
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -70,9 +74,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_version12.9python3.14.____cp314
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_version12.9is_freethreadingfalsepython3.14.____cp314
+            CONFIG_SHORT: linux_64_cuda_compiler_version12.9is_fre_hbb66f3ae
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -82,9 +87,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_version12.9python3.14.____cp314t
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_version12.9is_freethreadingtruepython3.14.____cp314t
+            CONFIG_SHORT: linux_64_cuda_compiler_version12.9is_fre_hac4e583a
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -94,9 +100,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_versionNonepython3.10.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_versionNoneis_freethreadingfalsepython3.10.____cpython
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNoneis_fre_hb26d5ef4
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -106,9 +113,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_versionNonepython3.11.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_versionNoneis_freethreadingfalsepython3.11.____cpython
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNoneis_fre_ha8cc58b3
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -118,9 +126,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_versionNonepython3.12.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_versionNoneis_freethreadingfalsepython3.12.____cpython
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNoneis_fre_h24df4c6b
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -130,9 +139,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_versionNonepython3.13.____cp313
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_versionNoneis_freethreadingfalsepython3.13.____cp313
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNoneis_fre_h31b1c54b
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -142,9 +152,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_versionNonepython3.14.____cp314
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_versionNoneis_freethreadingfalsepython3.14.____cp314
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNoneis_fre_hea111898
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -154,9 +165,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_64_cuda_compiler_versionNonepython3.14.____cp314t
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_64_cuda_compiler_versionNoneis_freethreadingtruepython3.14.____cp314t
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNoneis_fre_h9a1d54e4
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -166,9 +178,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_version12.9python3.10.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_version12.9is_freethreadingfalsepython3.10.____cpython
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_version12.9i_h6b84d656
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -178,9 +191,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_version12.9python3.11.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_version12.9is_freethreadingfalsepython3.11.____cpython
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_version12.9i_hf3735a7b
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -190,9 +204,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_version12.9python3.12.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_version12.9is_freethreadingfalsepython3.12.____cpython
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_version12.9i_hc60a4393
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -202,9 +217,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_version12.9python3.13.____cp313
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_version12.9is_freethreadingfalsepython3.13.____cp313
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_version12.9i_hedf5aa7c
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -214,9 +230,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_version12.9python3.14.____cp314
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_version12.9is_freethreadingfalsepython3.14.____cp314
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_version12.9i_hdce6755f
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -226,9 +243,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_version12.9python3.14.____cp314t
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_version12.9is_freethreadingtruepython3.14.____cp314t
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_version12.9i_hecdd2b0e
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -238,9 +256,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.10.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_versionNoneis_freethreadingfalsepython3.10.____cpython
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonei_h1b073ba5
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -250,9 +269,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.11.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_versionNoneis_freethreadingfalsepython3.11.____cpython
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonei_h201d210c
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -262,9 +282,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.12.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_versionNoneis_freethreadingfalsepython3.12.____cpython
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonei_h8c6f5eee
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -274,9 +295,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.13.____cp313
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_versionNoneis_freethreadingfalsepython3.13.____cp313
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonei_hb8574496
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -286,9 +308,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.14.____cp314
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_versionNoneis_freethreadingfalsepython3.14.____cp314
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonei_h849a0ebb
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -298,9 +321,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.14.____cp314t
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_aarch64_cuda_compiler_versionNoneis_freethreadingtruepython3.14.____cp314t
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonei_hef9ce7b0
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -310,9 +334,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_ppc64le_python3.10.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_ppc64le_is_freethreadingfalsepython3.10.____cpython
+            CONFIG_SHORT: linux_ppc64le_is_freethreadingfalsepytho_he5f71402
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -322,9 +347,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_ppc64le_python3.11.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_ppc64le_is_freethreadingfalsepython3.11.____cpython
+            CONFIG_SHORT: linux_ppc64le_is_freethreadingfalsepytho_hfd25df9a
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -334,9 +360,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_ppc64le_python3.12.____cpython
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_ppc64le_is_freethreadingfalsepython3.12.____cpython
+            CONFIG_SHORT: linux_ppc64le_is_freethreadingfalsepytho_h55c268aa
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -346,9 +373,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_ppc64le_python3.13.____cp313
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_ppc64le_is_freethreadingfalsepython3.13.____cp313
+            CONFIG_SHORT: linux_ppc64le_is_freethreadingfalsepytho_hd3bcb292
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -358,21 +386,10 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
-          - CONFIG: linux_ppc64le_python3.14.____cp314
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
-            UPLOAD_PACKAGES: True
-            build_workspace_dir: build_artifacts
-            docker_run_args: 
-            free_disk_space: skip
-            os: ubuntu
-            pagefile_size: 0
-            resize_partitions: False
-            runs_on: ['ubuntu-latest']
-            tools_install_dir: ~/miniforge3
-          - CONFIG: linux_ppc64le_python3.14.____cp314t
-            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-            STORE_BUILD_ARTIFACTS: False
+          - CONFIG: linux_ppc64le_is_freethreadingfalsepython3.14.____cp314
+            CONFIG_SHORT: linux_ppc64le_is_freethreadingfalsepytho_h2d357a84
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma10
+            STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
             docker_run_args: 
@@ -385,7 +402,7 @@ jobs:
     steps:
 
     - name: Checkout code
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Configure binfmt_misc
       if: matrix.os == 'ubuntu'
       shell: bash
@@ -414,7 +431,7 @@ jobs:
       run: |
         export CONDA_BLD_PATH="${CONDA_BLD_PATH/#~/${HOME}}"
         export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
-        export GIT_BRANCH="$(basename $GITHUB_REF)"
+        export GIT_BRANCH="${GITHUB_REF_NAME}"
         export MINIFORGE_HOME="${MINIFORGE_HOME/#~/${HOME}}"
         export flow_run_id="github_$GITHUB_RUN_ID"
         export remote_url="https://github.com/$GITHUB_REPOSITORY"
@@ -444,7 +461,7 @@ jobs:
       run: |
         export CONDA_BLD_PATH="${CONDA_BLD_PATH/#~/${HOME}}"
         export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
-        export GIT_BRANCH="$(basename $GITHUB_REF)"
+        export GIT_BRANCH="${GITHUB_REF_NAME}"
         export MINIFORGE_HOME="${MINIFORGE_HOME/#~/${HOME}}"
         export flow_run_id="github_$GITHUB_RUN_ID"
         export remote_url="https://github.com/$GITHUB_REPOSITORY"
@@ -466,6 +483,7 @@ jobs:
         set "sha=%GITHUB_SHA%"
         call ".scripts\run_win_build.bat"
       env:
+        BUILD_PLATFORM: ${{ matrix.build_platform }}
         CI: github_actions
         CONDA_BLD_PATH: ${{ matrix.build_workspace_dir }}
         CONFIG: ${{ matrix.CONFIG }}
@@ -477,3 +495,93 @@ jobs:
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
         STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
+
+    - name: Determine build outcome
+      # this is to merge the status of the linux/osx/win builds into
+      # something we can easily reuse during artefact generation
+      id: determine-status
+      if: ${{ always() }}
+      shell: bash
+      env:
+        OS: ${{ matrix.os }}
+      run: |
+        if [[ "$OS" == "ubuntu" ]]; then
+          STATUS=${{ steps.build-linux.outcome }}
+        elif [[ "$OS" == "macos" ]]; then
+          STATUS=${{ steps.build-macos.outcome }}
+        elif [[ "$OS" == "windows" ]]; then
+          STATUS=${{ steps.build-windows.outcome }}
+        fi
+        if [ -z "$STATUS" ]; then
+          # steps that never ran will have empty status
+          STATUS="cancelled"
+        fi
+        echo "status=$STATUS" >> $GITHUB_OUTPUT
+
+    - name: Prepare conda build artifacts
+      continue-on-error: true
+      id: prepare-artifacts
+      shell: bash
+      # we do not want to trigger artefact creation if the build was cancelled
+      if: ${{ always() && steps.determine-status.outputs.status != 'cancelled' && matrix.STORE_BUILD_ARTIFACTS }}
+      env:
+        CI: github_actions
+        CONDA_BLD_PATH: ${{ matrix.build_workspace_dir }}
+        CONFIG: ${{ matrix.CONFIG }}
+        CONFIG_SHORT: ${{ matrix.CONFIG_SHORT }}
+        JOB_STATUS: ${{ steps.determine-status.outputs.status }}
+        MINIFORGE_HOME: ${{ matrix.tools_install_dir }}
+        OS: ${{ matrix.os }}
+      run: |
+        export ARTIFACT_STAGING_DIR="$GITHUB_WORKSPACE"
+        export CI_RUN_ID=$GITHUB_RUN_ID
+        export CONDA_BLD_PATH="${CONDA_BLD_PATH/#~/${HOME}}"
+        export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
+        export MINIFORGE_HOME="${MINIFORGE_HOME/#~/${HOME}}"
+        # Archive everything in CONDA_BLD_PATH except environments
+        # Archive the CONDA_BLD_PATH environments only when the job fails
+        # Use different prefix for successful and failed build artifacts
+        # so random failures don't prevent rebuilds from creating artifacts.
+        if [ $JOB_STATUS == "failure" ]; then
+            export BLD_ARTIFACT_PREFIX="conda_pkgs_failed"
+            export ENV_ARTIFACT_PREFIX="conda_envs"
+            export WRK_ARTIFACT_PREFIX="conda_work"
+        else
+            export BLD_ARTIFACT_PREFIX="conda_pkgs"
+        fi
+        if [ $OS == "windows" ]; then
+          pwsh -Command ". '.scripts/create_conda_build_artifacts.bat'"
+        else
+          ./.scripts/create_conda_build_artifacts.sh
+        fi
+
+    - name: Store conda build artifacts
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.BLD_ARTIFACT_PATH != '' }}
+      with:
+        name: ${{ steps.prepare-artifacts.outputs.BLD_ARTIFACT_NAME }}
+        path: ${{ steps.prepare-artifacts.outputs.BLD_ARTIFACT_PATH }}
+        retention-days: 14
+        archive: false
+      continue-on-error: true
+
+    - name: Store conda work directory artifacts
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.WRK_ARTIFACT_PATH != '' }}
+      with:
+        name: ${{ steps.prepare-artifacts.outputs.WRK_ARTIFACT_NAME }}
+        path: ${{ steps.prepare-artifacts.outputs.WRK_ARTIFACT_PATH }}
+        retention-days: 14
+        archive: false
+      continue-on-error: true
+
+    - name: Store conda build environment artifacts
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      # only relevant if build failed, see above
+      if: ${{ always() && steps.prepare-artifacts.outcome == 'success' && steps.prepare-artifacts.outputs.ENV_ARTIFACT_PATH != '' }}
+      with:
+        name: ${{ steps.prepare-artifacts.outputs.ENV_ARTIFACT_NAME }}
+        path: ${{ steps.prepare-artifacts.outputs.ENV_ARTIFACT_PATH }}
+        retention-days: 14
+        archive: false
+      continue-on-error: true

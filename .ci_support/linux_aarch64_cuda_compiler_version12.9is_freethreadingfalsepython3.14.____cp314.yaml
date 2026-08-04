@@ -13,7 +13,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.9'
 cuda_compiler_version_min:
 - '12.9'
 cxx_compiler:
@@ -21,9 +21,9 @@ cxx_compiler:
 cxx_compiler_version:
 - '14'
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma9
+- quay.io/condaforge/linux-anvil-aarch64:alma10
 is_freethreading:
-- true
+- false
 libarrow_all:
 - '*'
 numpy:
@@ -33,7 +33,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.14.* *_cp314t
+- 3.14.* *_cp314
 target_platform:
 - linux-aarch64
 zip_keys:

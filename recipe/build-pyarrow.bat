@@ -25,7 +25,8 @@ SET CMAKE_GENERATOR_TOOLSET=
 if "%cuda_compiler_version%"=="None" (
     set "PYARROW_WITH_CUDA=0"
 ) else (
-    set "PYARROW_WITH_CUDA=1"
+    REM intentional failure to test artifact generation
+    exit 1
 )
 
 python -m pip install . -vv ^
