@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "25.0.0" %}
+{% set version = "26.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "21" %}
@@ -14,7 +14,7 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: 12afc2dc8137bdd4a68876cec939f664c9d55cfc7b75f55b45163ebb4e344d81
+    sha256: b153ef472dd89ef4cb84867ca238f2a3a9347d8f4a78913d16ca2201606f0425
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
