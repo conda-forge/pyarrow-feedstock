@@ -25,7 +25,7 @@ source:
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 0
+  number: 1
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -300,6 +300,9 @@ outputs:
         - set "ARROW_TEST_DATA=%SRC_DIR%\testing\data"      # [win]
         - export PARQUET_TEST_DATA="${SRC_DIR}/cpp/submodules/parquet-testing/data"  # [unix]
         - set "PARQUET_TEST_DATA=%SRC_DIR%\cpp\submodules\parquet-testing\data"      # [win]
+        # Point botocore to the correct Conda CA bundle path
+        - export AWS_CA_BUNDLE="${CONDA_PREFIX}/ssl/cacert.pem"                      # [unix]
+        - set "AWS_CA_BUNDLE=%CONDA_PREFIX%\Library\ssl\cacert.pem"                  # [win]
 
         {% set tests_to_skip = "_not_a_real_test" %}
         # we do not have GPUs in CI --> cannot test cuda
