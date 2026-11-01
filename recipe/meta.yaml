@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "25.0.0" %}
+{% set version = "26.0.0" %}
 {% set cuda_enabled = cuda_compiler_version != "None" %}
 {% set build_ext = "cuda" if cuda_enabled else "cpu" %}
 {% set llvm_version = "21" %}
@@ -14,18 +14,18 @@ package:
 source:
   - url: https://www.apache.org/dyn/closer.lua/arrow/arrow-{{ version }}/apache-arrow-{{ version }}.tar.gz?action=download
     fn: apache-arrow-{{ version }}.tar.gz
-    sha256: 12afc2dc8137bdd4a68876cec939f664c9d55cfc7b75f55b45163ebb4e344d81
+    sha256: b153ef472dd89ef4cb84867ca238f2a3a9347d8f4a78913d16ca2201606f0425
 
   # testing-submodules not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
-    git_rev: d2a13712303498963395318a4eb42872e66aead7
+    git_rev: 9ff285c88565f0f6abc855918c6a342e70e4909c
     folder: testing
   - git_url: https://github.com/apache/parquet-testing.git
-    git_rev: 18d17540097fca7c40be3d42c167e6bfad90763c
+    git_rev: 56653c437c8092f704a092d0d1d4e600124cd49f
     folder: cpp/submodules/parquet-testing
 
 build:
-  number: 1
+  number: 0
   # for cuda support, building with one version is enough to be compatible with
   # all later versions, since arrow is only using libcuda, and not libcudart.
   skip: true  # [cuda_compiler_version not in ("None", cuda_compiler_version_min)]
@@ -57,14 +57,16 @@ outputs:
         - 'lib/libarrow_dataset.*'            # [unix]
         - 'lib/libarrow_substrait.*'          # [unix]
         - 'lib/libarrow_flight.*'             # [unix]
+        - 'lib/libarrow_s3.*'                 # [unix]
         - 'lib/libparquet.*'                  # [unix]
         - 'lib/libgandiva.*'                  # [unix]
-        - 'Library/lib/arrow_acero.dll'       # [win]
-        - 'Library/lib/arrow_dataset.dll'     # [win]
-        - 'Library/lib/arrow_substrait.dll'   # [win]
-        - 'Library/lib/arrow_flight.dll'      # [win]
-        - 'Library/lib/parquet.dll'           # [win]
-        - 'Library/lib/gandiva.dll'           # [win]
+        - 'Library/bin/arrow_acero.dll'       # [win]
+        - 'Library/bin/arrow_dataset.dll'     # [win]
+        - 'Library/bin/arrow_substrait.dll'   # [win]
+        - 'Library/bin/arrow_flight.dll'      # [win]
+        - 'Library/bin/arrow_s3.dll'          # [win]
+        - 'Library/bin/parquet.dll'           # [win]
+        - 'Library/bin/gandiva.dll'           # [win]
     requirements:
       build:
         - {{ compiler("c") }}
@@ -125,7 +127,6 @@ outputs:
         - pyarrow._azurefs
         - pyarrow._gcsfs
         - pyarrow._hdfs
-        - pyarrow._s3fs
       commands:
         # libraries that depend on python (and hence aren't in libarrow itself)
         - test -f ${SP_DIR}/pyarrow/libarrow_python.so                              # [linux]
@@ -178,6 +179,7 @@ outputs:
         # Default doesn't contain flight, flight-sql and gandiva
         - libarrow-acero {{ version }}.*
         - libarrow-dataset {{ version }}.*
+        - libarrow-s3 {{ version }}.*
         - libarrow-substrait {{ version }}.*
         - libparquet {{ version }}.*
         - python
@@ -189,6 +191,7 @@ outputs:
         # default pyarrow contains parquet
         - pyarrow.dataset
         - pyarrow.parquet
+        - pyarrow._s3fs
       commands:
         # Expected not included libraries
         - test ! -f $PREFIX/lib/libarrow_flight${SHLIB_EXT}                        # [unix]

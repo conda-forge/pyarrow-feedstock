@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/amd64
 c_compiler:
 - gcc
 c_compiler_version:
@@ -40,7 +42,6 @@ zip_keys:
   - c_stdlib_version
   - cuda_compiler_version
 - - python
-  - channel_sources
   - is_freethreading
 zlib:
 - '1'
