@@ -33,6 +33,8 @@ fi
 if [[ "${target_platform}" == osx-* ]]; then
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
+    # native osx-arm64 runners have Homebrew in /opt/homebrew, which CMake searches by default
+    CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_IGNORE_PREFIX_PATH=/opt/homebrew"
 fi
 
 if [[ "${target_platform}" == "linux-aarch64" ]] || [[ "${target_platform}" == "linux-ppc64le" ]]; then
